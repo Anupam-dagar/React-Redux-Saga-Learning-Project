@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { getUserProfile } from "./actions/userprofileactions";
+import { logoutUser } from "./actions";
+import Signup from "./Components/Signup";
+import Login from "./Components/Login";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  componentDidMount = () => {
+    this.props.getUserProfile();
+  };
+
+  handleClick = event => {
+    event.preventDefault();
+    // Remove the token from localStorage
+    localStorage.removeItem("token");
+    // Remove the user object from the Redux store
+    this.props.logoutUser();
+  };
+
+  render() {
+    return (
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+          </Switch>
+        </BrowserRouter>
+        {this.props.currentUser.username ? (
+          <button onClick={this.handleClick}>Log Out</button>
+        ) : null}
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser
+});
+
+export default connect(mapStateToProps, { getUserProfile, logoutUser })(App);
