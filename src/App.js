@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { getUserProfile } from "./actions/userprofileactions";
-import { logoutUser } from "./actions";
+import { getUserProfile } from "./actions/authactions";
+import { logoutUser } from "./actions/authactions";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 
@@ -13,9 +13,6 @@ class App extends Component {
 
   handleClick = event => {
     event.preventDefault();
-    // Remove the token from localStorage
-    localStorage.removeItem("token");
-    // Remove the user object from the Redux store
     this.props.logoutUser();
   };
 
