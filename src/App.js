@@ -5,6 +5,7 @@ import { getUserProfile } from "./actions/authactions";
 import { logoutUser } from "./actions/authactions";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
+import 'semantic-ui-css/semantic.min.css';
 
 class App extends Component {
   componentDidMount = () => {
