@@ -7,6 +7,7 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import 'semantic-ui-css/semantic.min.css';
 
+
 class App extends Component {
   componentDidMount = () => {
     this.props.getUserProfile();
@@ -22,8 +23,8 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
           </Switch>
         </BrowserRouter>
         {this.props.currentUser.username ? (

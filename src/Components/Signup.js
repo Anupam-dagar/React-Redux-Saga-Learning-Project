@@ -1,14 +1,26 @@
 import React, { Component } from "react";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment
+} from "semantic-ui-react";
 import { connect } from "react-redux";
+import logo from "../logo.png";
+import { Link } from "react-router-dom";
 import { signupUser } from "../actions/authactions";
 
-class Signup extends Component {
+class SignupForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       username: "",
       password: "",
+      confirm_password: "",
       email: ""
     };
   }
@@ -26,41 +38,70 @@ class Signup extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h1>Sign Up For An Account</h1>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Image src={logo} size="small" centered />
+          <Header as="h2" color="teal" textAlign="center">
+            Create a new account
+          </Header>
+          <Form size="large" onSubmit={this.handleSubmit}>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="Username"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="mail"
+                iconPosition="left"
+                placeholder="youremail@domain.com"
+                type="email"
+                name="email"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Confirm Password"
+                type="password"
+                name="confirmPassword"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
 
-        <label>Username</label>
-        <input
-          name="username"
-          placeholder="Username"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
-        <br />
-
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <br />
-
-        <label>Email</label>
-        <input
-          name="email"
-          placeholder="something@domain.com"
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        <br />
-
-        <input type="submit" />
-      </form>
+              <Button color="teal" fluid size="large" type="submit">
+                Register
+              </Button>
+            </Segment>
+          </Form>
+          <Link to="/newlogin">
+            <Message>Already have an account? Login</Message>
+          </Link>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
 
-export default connect(null, { signupUser })(Signup);
+export default connect(null, { signupUser })(SignupForm);

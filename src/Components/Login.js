@@ -1,15 +1,26 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment
+} from "semantic-ui-react";
 import { loginUser } from "../actions/authactions";
+import { connect } from "react-redux";
+import logo from "../logo.png";
+import { Link } from "react-router-dom";
 
-class Login extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       username: "",
       password: ""
-    }
+    };
   }
 
   handleChange = event => {
@@ -25,32 +36,50 @@ class Login extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h1>Login</h1>
+      <Grid
+        textAlign="center"
+        style={{ height: "100vh" }}
+        verticalAlign="middle"
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Image src={logo} size="small" centered />
+          <Header as="h2" color="teal" textAlign="center">
+            Login to restaurant portal
+          </Header>
+          <Form size="large" onSubmit={this.handleSubmit}>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                placeholder="Username"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+              />
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                placeholder="Password"
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
 
-        <label>Username</label>
-        <input
-          name="username"
-          placeholder="Username"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
-        <br />
-
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={this.state.password}
-          onChange={this.handleChange}
-        />
-        <br />
-
-        <input type="submit" />
-      </form>
+              <Button color="teal" fluid size="large" type="submit">
+                Login
+              </Button>
+            </Segment>
+          </Form>
+          <Link to="/newsignup">
+            <Message>New to us? Sign Up</Message>
+          </Link>
+        </Grid.Column>
+      </Grid>
     );
   }
 }
 
-export default connect(null, { loginUser })(Login);
+export default connect(null, { loginUser })(LoginForm);
