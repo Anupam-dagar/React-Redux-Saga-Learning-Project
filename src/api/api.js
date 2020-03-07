@@ -10,7 +10,7 @@ export const loginUserApi = user => {
     .then(resp => resp.json())
     .then(data => {
       if (data.error) {
-        console.log(data.error);
+        throw data.error
       } else {
         return data;
       }
@@ -29,7 +29,7 @@ export const signupUserApi = user => {
     .then(resp => resp.json())
     .then(data => {
       if (data.error) {
-        console.log(data.error);
+        throw data.error
       } else {
         return data;
       }
@@ -37,7 +37,6 @@ export const signupUserApi = user => {
 };
 
 export const getUserProfileApi = token => {
-  console.log('han hua');
   return fetch("http://localhost:8000/api/auth/user", {
     method: "GET",
     headers: {
@@ -49,6 +48,7 @@ export const getUserProfileApi = token => {
     .then(resp => resp.json())
     .then(data => {
       if (data.detail) {
+        throw data.detail
       } else {
         return data;
       }
