@@ -5,10 +5,10 @@ import {
 } from "../actions/types";
 import { getAllRestaurants } from "../api/api";
 
-export function* getRestaurants() {
+export function* getRestaurants(page) {
   const token = localStorage.getItem("token");
   try {
-    const response = yield call(getAllRestaurants, token);
+    const response = yield call(getAllRestaurants, page, token);
     yield put({
       type: SUCCESS_ALL_RESTAURANTS,
       payload: response

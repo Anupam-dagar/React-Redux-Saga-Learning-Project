@@ -6,6 +6,7 @@ import Collection from "./Collection";
 import { Container, Card, Image, Button, Menu, Input } from "semantic-ui-react";
 import SearchBar from "./Searchbar";
 import RestaurantGrid from "./RestaurantGrid";
+import PaginationBar from "./Paginationbar";
 
 class Home extends Component {
   render() {
@@ -18,8 +19,13 @@ class Home extends Component {
           </Route>
           <Route path={this.props.match.path}>
             <Container>
-              <SearchBar />
+              <Container>
+                <SearchBar />
+              </Container>
               <RestaurantGrid />
+              <Container textAlign="center">
+                <PaginationBar />
+              </Container>
             </Container>
           </Route>
         </Switch>

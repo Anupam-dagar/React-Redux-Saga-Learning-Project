@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { getAllRestaurants } from "../actions/restaurantactions";
 import moment from "moment";
 import _ from "lodash";
+import Spinner from "./Spinner";
 
 class RestaurantGrid extends Component {
   state = {
@@ -32,7 +33,7 @@ class RestaurantGrid extends Component {
     });
   };
   componentDidMount() {
-    this.props.getAllRestaurants();
+    this.props.getAllRestaurants(1);
     this.setState({ today: moment().isoWeekday() - 1 });
   }
 
@@ -48,11 +49,7 @@ class RestaurantGrid extends Component {
       this.props.isLoading === undefined ||
       this.state.data == null
     ) {
-      return (
-        <Dimmer active inverted>
-          <Loader inverted>Loading</Loader>
-        </Dimmer>
-      );
+      return <Spinner />;
     }
     return (
       <Table celled sortable columns={8}>
@@ -112,74 +109,102 @@ class RestaurantGrid extends Component {
             <Table.Row key={index}>
               <Table.Cell>{restaurantData.restaurant.name}</Table.Cell>
               <Table.Cell positive={this.state.today === 0 ? true : false}>
-                {moment(restaurantData.opening_time["0"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.opening_time["0"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.opening_time["0"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 0 ? true : false}>
-                {moment(restaurantData.closing_time["0"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.closing_time["0"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.closing_time["0"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 1 ? true : false}>
-                {moment(restaurantData.opening_time["1"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.opening_time["1"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.opening_time["1"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 1 ? true : false}>
-                {moment(restaurantData.closing_time["1"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.closing_time["1"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.closing_time["1"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 2 ? true : false}>
-                {moment(restaurantData.opening_time["2"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.opening_time["2"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.opening_time["2"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 2 ? true : false}>
-                {moment(restaurantData.closing_time["2"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.closing_time["2"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.closing_time["2"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 3 ? true : false}>
-                {moment(restaurantData.opening_time["3"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.opening_time["3"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.opening_time["3"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 3 ? true : false}>
-                {moment(restaurantData.closing_time["3"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.closing_time["3"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.closing_time["3"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 4 ? true : false}>
-                {moment(restaurantData.opening_time["4"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.opening_time["4"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.opening_time["4"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 4 ? true : false}>
-                {moment(restaurantData.closing_time["4"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.closing_time["4"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.closing_time["4"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 5 ? true : false}>
-                {moment(restaurantData.opening_time["5"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.opening_time["5"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.opening_time["5"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 5 ? true : false}>
-                {moment(restaurantData.closing_time["5"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+              {restaurantData.closing_time["5"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.closing_time["5"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 6 ? true : false}>
-                {moment(restaurantData.opening_time["6"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+                {restaurantData.opening_time["6"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.opening_time["6"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
               <Table.Cell positive={this.state.today === 6 ? true : false}>
-                {moment(restaurantData.closing_time["6"], "hh:mm A").format(
-                  "hh:mm A"
-                )}
+                {restaurantData.closing_time["6"] === undefined
+                  ? "Closed"
+                  : moment(restaurantData.closing_time["6"], "hh:mm A").format(
+                      "hh:mm A"
+                    )}
               </Table.Cell>
             </Table.Row>
           ))}

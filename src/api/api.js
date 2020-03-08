@@ -55,8 +55,8 @@ export const getUserProfileApi = token => {
     });
 };
 
-export const getAllRestaurants = token => {
-  return fetch("http://localhost:8000/api/v1/restaurants/", {
+export const getAllRestaurants = (page, token) => {
+  return fetch(`http://localhost:8000/api/v1/restaurants/?page=${page.page}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -69,7 +69,9 @@ export const getAllRestaurants = token => {
       if (data.detail) {
         throw data.detail;
       } else {
-        return data;
+        let nextPage = data.next === null ? null : page.page+1;
+        let prevPage = data.previous === null ? null : page.page-1;
+        return {...data, prevPage: prevPage, currentPage: page.page, nextPage:nextPage, numPages: Math.ceil(data.count/10)};
       }
     });
 };
