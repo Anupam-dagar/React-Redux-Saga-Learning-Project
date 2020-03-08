@@ -23,6 +23,10 @@ class LoginForm extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({ error: null });
+  }
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -33,6 +37,15 @@ class LoginForm extends Component {
     event.preventDefault();
     this.props.loginUser(this.state);
   };
+
+  componentDidUpdate(newprops) {
+    if (newprops.error !== this.props.error) {
+      this.setState({ error: this.props.error });
+    }
+    if (newprops.currentUser.username !== this.props.currentUser.username) {
+      this.props.history.push("/");
+    }
+  }
 
   render() {
     return (
@@ -67,13 +80,17 @@ class LoginForm extends Component {
                 value={this.state.password}
                 onChange={this.handleChange}
               />
-
+              {this.state.error && (
+                <Message negative>
+                  <Message.Header>Invalid Username or Password</Message.Header>
+                </Message>
+              )}
               <Button color="teal" fluid size="large" type="submit">
                 Login
               </Button>
             </Segment>
           </Form>
-          <Link to="/newsignup">
+          <Link to="/signup">
             <Message>New to us? Sign Up</Message>
           </Link>
         </Grid.Column>
@@ -82,4 +99,9 @@ class LoginForm extends Component {
   }
 }
 
-export default connect(null, { loginUser })(LoginForm);
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser,
+  error: state.auth.error
+});
+
+export default connect(mapStateToProps, { loginUser })(LoginForm);

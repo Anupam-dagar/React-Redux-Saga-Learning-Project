@@ -95,7 +95,7 @@ class SignupForm extends Component {
               </Button>
             </Segment>
           </Form>
-          <Link to="/newlogin">
+          <Link to="/login">
             <Message>Already have an account? Login</Message>
           </Link>
         </Grid.Column>

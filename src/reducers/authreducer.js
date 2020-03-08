@@ -20,29 +20,64 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case REQUEST_LOGIN_USER:
-      return state;
+      return { ...state, isLoading: true, isAuthenticated: false };
     case SUCCESS_LOGIN_USER:
-      return { ...state, currentUser: action.payload };
+      return {
+        ...state,
+        currentUser: action.payload,
+        isLoading: false,
+        isAuthenticated: true
+      };
     case FAILURE_LOGIN_USER:
-      return { ...state, currentUser: action.payload };
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+        isAuthenticated: false
+      };
     case REQUEST_LOGOUT_USER:
-      return state;
+      return { ...state, isLoading: true, isAuthenticated: true };
     case SUCCESS_LOGOUT_USER:
-      return { ...state, currentUser: {} };
+      return {
+        ...state,
+        currentUser: {},
+        isLoading: false,
+        isAuthenticated: false
+      };
     case FAILURE_LOGOUT_USER:
-      return { ...state, currentUser: {} };
+      return {
+        ...state,
+        currentUser: {},
+        isLoading: false,
+        isAuthenticated: true
+      };
     case REQUEST_SIGNUP_USER:
-      return state;
+      return { ...state, isLoading: true, isAuthenticated: false };
     case SUCCESS_SIGNUP_USER:
-      return { ...state, currentUser: action.payload };
+      return {
+        ...state,
+        currentUser: action.payload,
+        isLoading: false,
+        isAuthenticated: true
+      };
     case FAILURE_SIGNUP_USER:
-      return { ...state, currentUser: action.payload };
+      return {
+        ...state,
+        currentUser: action.payload,
+        isLoading: false,
+        isAuthenticated: false
+      };
     case REQUEST_USER_PROFILE:
-      return state;
+      return { ...state, isLoading: true, isAuthenticated: false };
     case SUCCESS_USER_PROFILE:
-      return { ...state, currentUser: action.payload };
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
+        currentUser: action.payload
+      };
     case FAILURE_USER_PROFILE:
-      return { ...state, currentUser: action.payload };
+      return { ...state, isLoading: false, isAuthenticated: false };
     default:
       return state;
   }
