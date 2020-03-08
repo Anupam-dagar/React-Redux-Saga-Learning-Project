@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Navigation from "./Navigation";
 import { Switch, Route } from "react-router-dom";
 import Collection from "./Collection";
-import { Container, Card, Image, Button, Menu, Input } from "semantic-ui-react";
+import { Container, Divider } from "semantic-ui-react";
 import SearchBar from "./Searchbar";
 import RestaurantGrid from "./RestaurantGrid";
 import PaginationBar from "./Paginationbar";
@@ -18,11 +18,13 @@ class Home extends Component {
             <Collection />
           </Route>
           <Route path={this.props.match.path}>
-            <Container>
+            <Container fluid>
               <Container>
                 <SearchBar />
               </Container>
+              <Divider hidden />
               <RestaurantGrid />
+              <Divider hidden />
               <Container textAlign="center">
                 <PaginationBar />
               </Container>

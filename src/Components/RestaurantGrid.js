@@ -52,164 +52,223 @@ class RestaurantGrid extends Component {
       return <Spinner />;
     }
     return (
-      <Table celled sortable columns={8}>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell
-              rowSpan="2"
-              sorted={
-                this.state.column === "name" ? this.state.direction : null
-              }
-              onClick={this.handleSort("name")}
-            >
-              Name
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="2" textAlign="center">
-              Monday
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="2" textAlign="center">
-              Tuesday
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="2" textAlign="center">
-              Wednesday
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="2" textAlign="center">
-              Thursday
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="2" textAlign="center">
-              Friday
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="2" textAlign="center">
-              Saturday
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="2" textAlign="center">
-              Sunday
-            </Table.HeaderCell>
-          </Table.Row>
-          <Table.Row>
-            <Table.HeaderCell>Opens At</Table.HeaderCell>
-            <Table.HeaderCell>Close At</Table.HeaderCell>
-            <Table.HeaderCell>Opens At</Table.HeaderCell>
-            <Table.HeaderCell>Close At</Table.HeaderCell>
-            <Table.HeaderCell>Opens At</Table.HeaderCell>
-            <Table.HeaderCell>Close At</Table.HeaderCell>
-            <Table.HeaderCell>Opens At</Table.HeaderCell>
-            <Table.HeaderCell>Close At</Table.HeaderCell>
-            <Table.HeaderCell>Opens At</Table.HeaderCell>
-            <Table.HeaderCell>Close At</Table.HeaderCell>
-            <Table.HeaderCell>Opens At</Table.HeaderCell>
-            <Table.HeaderCell>Close At</Table.HeaderCell>
-            <Table.HeaderCell>Opens At</Table.HeaderCell>
-            <Table.HeaderCell>Close At</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-
-        <Table.Body>
-          {this.state.data.map((restaurantData, index) => (
-            <Table.Row key={index}>
-              <Table.Cell>{restaurantData.restaurant.name}</Table.Cell>
-              <Table.Cell positive={this.state.today === 0 ? true : false}>
-              {restaurantData.opening_time["0"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.opening_time["0"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 0 ? true : false}>
-              {restaurantData.closing_time["0"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.closing_time["0"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 1 ? true : false}>
-              {restaurantData.opening_time["1"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.opening_time["1"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 1 ? true : false}>
-              {restaurantData.closing_time["1"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.closing_time["1"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 2 ? true : false}>
-              {restaurantData.opening_time["2"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.opening_time["2"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 2 ? true : false}>
-              {restaurantData.closing_time["2"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.closing_time["2"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 3 ? true : false}>
-              {restaurantData.opening_time["3"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.opening_time["3"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 3 ? true : false}>
-              {restaurantData.closing_time["3"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.closing_time["3"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 4 ? true : false}>
-              {restaurantData.opening_time["4"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.opening_time["4"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 4 ? true : false}>
-              {restaurantData.closing_time["4"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.closing_time["4"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 5 ? true : false}>
-              {restaurantData.opening_time["5"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.opening_time["5"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 5 ? true : false}>
-              {restaurantData.closing_time["5"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.closing_time["5"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 6 ? true : false}>
-                {restaurantData.opening_time["6"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.opening_time["6"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
-              <Table.Cell positive={this.state.today === 6 ? true : false}>
-                {restaurantData.closing_time["6"] === undefined
-                  ? "Closed"
-                  : moment(restaurantData.closing_time["6"], "hh:mm A").format(
-                      "hh:mm A"
-                    )}
-              </Table.Cell>
+      <div style={{ marginLeft: 20, marginRight: 20 }}>
+        <Table celled singleLine sortable columns={8}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell
+                textAlign="center"
+                rowSpan="2"
+                sorted={
+                  this.state.column === "name" ? this.state.direction : null
+                }
+                onClick={this.handleSort("name")}
+              >
+                Name
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="2" textAlign="center">
+                Monday
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="2" textAlign="center">
+                Tuesday
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="2" textAlign="center">
+                Wednesday
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="2" textAlign="center">
+                Thursday
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="2" textAlign="center">
+                Friday
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="2" textAlign="center">
+                Saturday
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="2" textAlign="center">
+                Sunday
+              </Table.HeaderCell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+            <Table.Row>
+              <Table.HeaderCell textAlign="center">Opens At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Close At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Opens At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Close At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Opens At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Close At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Opens At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Close At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Opens At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Close At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Opens At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Close At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Opens At</Table.HeaderCell>
+              <Table.HeaderCell textAlign="center">Close At</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            {this.state.data.map((restaurantData, index) => (
+              <Table.Row key={index}>
+                <Table.Cell>{restaurantData.restaurant.name}</Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 0 ? true : false}
+                >
+                  {restaurantData.opening_time["0"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.opening_time["0"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 0 ? true : false}
+                >
+                  {restaurantData.closing_time["0"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.closing_time["0"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 1 ? true : false}
+                >
+                  {restaurantData.opening_time["1"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.opening_time["1"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 1 ? true : false}
+                >
+                  {restaurantData.closing_time["1"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.closing_time["1"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 2 ? true : false}
+                >
+                  {restaurantData.opening_time["2"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.opening_time["2"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 2 ? true : false}
+                >
+                  {restaurantData.closing_time["2"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.closing_time["2"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 3 ? true : false}
+                >
+                  {restaurantData.opening_time["3"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.opening_time["3"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 3 ? true : false}
+                >
+                  {restaurantData.closing_time["3"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.closing_time["3"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 4 ? true : false}
+                >
+                  {restaurantData.opening_time["4"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.opening_time["4"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 4 ? true : false}
+                >
+                  {restaurantData.closing_time["4"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.closing_time["4"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 5 ? true : false}
+                >
+                  {restaurantData.opening_time["5"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.opening_time["5"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 5 ? true : false}
+                >
+                  {restaurantData.closing_time["5"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.closing_time["5"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 6 ? true : false}
+                >
+                  {restaurantData.opening_time["6"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.opening_time["6"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+                <Table.Cell
+                  textAlign="center"
+                  positive={this.state.today === 6 ? true : false}
+                >
+                  {restaurantData.closing_time["6"] === undefined
+                    ? "Closed"
+                    : moment(
+                        restaurantData.closing_time["6"],
+                        "hh:mm A"
+                      ).format("hh:mm A")}
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </div>
     );
   }
 }
