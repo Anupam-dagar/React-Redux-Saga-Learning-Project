@@ -1,10 +1,12 @@
 import { takeLatest, all } from "redux-saga/effects";
 import { loginUser, signupUser, getUserProfile, logoutUser } from "./authsagas";
+import { getRestaurants } from "./restaurantsagas";
 import {
   REQUEST_LOGIN_USER,
   REQUEST_SIGNUP_USER,
   REQUEST_USER_PROFILE,
-  REQUEST_LOGOUT_USER
+  REQUEST_LOGOUT_USER,
+  REQUEST_ALL_RESTAURANTS
 } from "../actions/types";
 
 export default function* watchUsers() {
@@ -12,6 +14,7 @@ export default function* watchUsers() {
     takeLatest(REQUEST_LOGIN_USER, loginUser),
     takeLatest(REQUEST_SIGNUP_USER, signupUser),
     takeLatest(REQUEST_USER_PROFILE, getUserProfile),
-    takeLatest(REQUEST_LOGOUT_USER, logoutUser)
+    takeLatest(REQUEST_LOGOUT_USER, logoutUser),
+    takeLatest(REQUEST_ALL_RESTAURANTS, getRestaurants)
   ]);
 }

@@ -10,7 +10,7 @@ export const loginUserApi = user => {
     .then(resp => resp.json())
     .then(data => {
       if (data.error) {
-        throw data.error
+        throw data.error;
       } else {
         return data;
       }
@@ -29,7 +29,7 @@ export const signupUserApi = user => {
     .then(resp => resp.json())
     .then(data => {
       if (data.error) {
-        throw data.error
+        throw data.error;
       } else {
         return data;
       }
@@ -48,7 +48,26 @@ export const getUserProfileApi = token => {
     .then(resp => resp.json())
     .then(data => {
       if (data.detail) {
-        throw data.detail
+        throw data.detail;
+      } else {
+        return data;
+      }
+    });
+};
+
+export const getAllRestaurants = token => {
+  return fetch("http://localhost:8000/api/v1/restaurants/", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.detail) {
+        throw data.detail;
       } else {
         return data;
       }

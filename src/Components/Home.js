@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import Navigation from "./Navigation";
 import { Switch, Route } from "react-router-dom";
 import Collection from "./Collection";
+import { Container, Card, Image, Button, Menu, Input } from "semantic-ui-react";
+import SearchBar from "./Searchbar";
+import RestaurantGrid from "./RestaurantGrid";
 
 class Home extends Component {
   render() {
@@ -14,7 +17,10 @@ class Home extends Component {
             <Collection />
           </Route>
           <Route path={this.props.match.path}>
-            <h3>hello</h3>
+            <Container>
+              <SearchBar />
+              <RestaurantGrid />
+            </Container>
           </Route>
         </Switch>
       </>
