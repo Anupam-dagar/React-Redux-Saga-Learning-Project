@@ -66,7 +66,7 @@ class SignupForm extends Component {
                 placeholder="youremail@domain.com"
                 type="email"
                 name="email"
-                value={this.state.password}
+                value={this.state.email}
                 onChange={this.handleChange}
               />
               <Form.Input
@@ -85,8 +85,8 @@ class SignupForm extends Component {
                 iconPosition="left"
                 placeholder="Confirm Password"
                 type="password"
-                name="confirmPassword"
-                value={this.state.password}
+                name="confirm_password"
+                value={this.state.confirm_password}
                 onChange={this.handleChange}
               />
 
