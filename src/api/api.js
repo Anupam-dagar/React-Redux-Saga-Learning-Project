@@ -75,3 +75,24 @@ export const getAllRestaurants = (page, token) => {
       }
     });
 };
+
+export const filterRestaurants = (page, day, time, token) => {
+  return fetch(`http://localhost:8000/api/v1/restaurants/${day}/${time}?page=${page.page}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.error) {
+        throw data.error;
+      } else {
+        let nextPage = data.next === null ? null : page.page+1;
+        let prevPage = data.previous === null ? null : page.page-1;
+        return {...data, prevPage: prevPage, currentPage: page.page, nextPage:nextPage, numPages: Math.ceil(data.count/10)};
+      }
+    });
+};

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Menu, Input } from "semantic-ui-react";
+import { Menu, Input, Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
+import Filterinput from  './Filterinput';
 
 class SearchBar extends Component {
   render() {
@@ -11,9 +12,7 @@ class SearchBar extends Component {
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item name="Filter By" header />
-          <Menu.Item name="Date" />
-          <Menu.Item name="Opening Time" />
-          <Menu.Item name="Closing Time" />
+          <Filterinput />
         </Menu.Menu>
       </Menu>
     );
