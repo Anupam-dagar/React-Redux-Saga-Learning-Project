@@ -4,7 +4,8 @@ import { Pagination } from "semantic-ui-react";
 import Spinner from "./Spinner";
 import {
   getAllRestaurants,
-  getFilterRestaurants
+  getFilterRestaurants,
+  getNamedRestaurants
 } from "../actions/restaurantactions";
 
 class PaginationBar extends Component {
@@ -13,12 +14,18 @@ class PaginationBar extends Component {
     siblingRange: 1,
     showEllipsis: true,
     showFirstAndLastNav: true,
-    showPreviousAndNextNav: true,
+    showPreviousAndNextNav: true
   };
 
   handlePaginationChange = (e, { activePage }) => {
     if (this.props.currentAction === "filter") {
-      this.props.getFilterRestaurants(activePage, this.props.day, this.props.time);
+      this.props.getFilterRestaurants(
+        activePage,
+        this.props.day,
+        this.props.time
+      );
+    } else if (this.props.currentAction === "named") {
+      this.props.getNamedRestaurants(activePage, this.props.name);
     } else {
       this.props.getAllRestaurants(activePage);
     }
@@ -29,7 +36,7 @@ class PaginationBar extends Component {
       siblingRange,
       showEllipsis,
       showFirstAndLastNav,
-      showPreviousAndNextNav,
+      showPreviousAndNextNav
     } = this.state;
 
     if (this.props.isLoading || this.props.isLoading === undefined) {
@@ -62,10 +69,12 @@ const mapStateToProps = state => ({
   error: state.restaurant.error,
   currentAction: state.restaurant.currentAction,
   day: state.restaurant.day,
-  time: state.restaurant.time
+  time: state.restaurant.time,
+  name: state.restaurant.name
 });
 
 export default connect(mapStateToProps, {
   getAllRestaurants,
-  getFilterRestaurants
+  getFilterRestaurants,
+  getNamedRestaurants
 })(PaginationBar);

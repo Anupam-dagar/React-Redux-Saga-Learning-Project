@@ -4,7 +4,10 @@ import {
   FAILURE_ALL_RESTAURANTS,
   REQUEST_FILTER_RESTAURANTS,
   SUCCESS_FILTER_RESTAURANTS,
-  FAILURE_FILTER_RESTAURANTS
+  FAILURE_FILTER_RESTAURANTS,
+  REQUEST_NAME_RESTAURANTS,
+  SUCCESS_NAME_RESTAURANTS,
+  FAILURE_NAME_RESTAURANTS
 } from "../actions/types";
 
 const initialState = {
@@ -46,6 +49,23 @@ export default function(state = initialState, action) {
         error: action.payload,
         isLoading: false,
         currentAction: 'filter'
+      }
+    case REQUEST_NAME_RESTAURANTS:
+      return {...state, isLoading: true, currentAction: 'named'}
+    case SUCCESS_NAME_RESTAURANTS:
+      return {
+        ...state,
+        restaurants: action.payload,
+        isLoading: false,
+        currentAction: 'named',
+        name: action.name
+      }
+    case FAILURE_NAME_RESTAURANTS:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+        currentAction: 'named'
       }
     default:
       return state;
