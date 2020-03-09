@@ -5,6 +5,7 @@ import {
   getNamedRestaurants,
   getAllRestaurants
 } from "../actions/restaurantactions";
+import _ from "lodash";
 
 class Searchinput extends Component {
   constructor(props) {
@@ -13,17 +14,24 @@ class Searchinput extends Component {
     this.state = {
       value: ""
     };
+
+    this.delayedRequest = _.debounce(this.delayedRequest, 500);
   }
 
   handleChange = e => {
+    console.log(this.state.value, "before");
     this.setState({ value: e.target.value });
+  };
+
+  delayedRequest = () => {
+    this.props.getNamedRestaurants(1, this.state.value);
   };
 
   componentDidUpdate() {
     if (this.state.value === "") {
       this.props.getAllRestaurants(1);
     } else {
-      this.props.getNamedRestaurants(1, this.state.value);
+      this.delayedRequest();
     }
   }
   render() {
