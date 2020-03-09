@@ -114,10 +114,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 0 ? true : false}
                 >
-                  {restaurantData.opening_time["0"] === undefined
+                  {restaurantData.opening_time.monday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.opening_time["0"],
+                        restaurantData.opening_time.monday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -125,10 +125,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 0 ? true : false}
                 >
-                  {restaurantData.closing_time["0"] === undefined
+                  {restaurantData.closing_time.monday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.closing_time["0"],
+                        restaurantData.closing_time.monday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -136,10 +136,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 1 ? true : false}
                 >
-                  {restaurantData.opening_time["1"] === undefined
+                  {restaurantData.opening_time.tuesday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.opening_time["1"],
+                        restaurantData.opening_time.tuesday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -147,10 +147,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 1 ? true : false}
                 >
-                  {restaurantData.closing_time["1"] === undefined
+                  {restaurantData.closing_time.tuesday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.closing_time["1"],
+                        restaurantData.closing_time.tuesday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -158,10 +158,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 2 ? true : false}
                 >
-                  {restaurantData.opening_time["2"] === undefined
+                  {restaurantData.opening_time.wednesday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.opening_time["2"],
+                        restaurantData.opening_time.wednesday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -169,10 +169,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 2 ? true : false}
                 >
-                  {restaurantData.closing_time["2"] === undefined
+                  {restaurantData.closing_time.wednesday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.closing_time["2"],
+                        restaurantData.closing_time.wednesday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -180,10 +180,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 3 ? true : false}
                 >
-                  {restaurantData.opening_time["3"] === undefined
+                  {restaurantData.opening_time.thursday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.opening_time["3"],
+                        restaurantData.opening_time.thursday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -191,10 +191,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 3 ? true : false}
                 >
-                  {restaurantData.closing_time["3"] === undefined
+                  {restaurantData.closing_time.thursday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.closing_time["3"],
+                        restaurantData.closing_time.thursday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -202,10 +202,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 4 ? true : false}
                 >
-                  {restaurantData.opening_time["4"] === undefined
+                  {restaurantData.opening_time.friday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.opening_time["4"],
+                        restaurantData.opening_time.friday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -213,10 +213,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 4 ? true : false}
                 >
-                  {restaurantData.closing_time["4"] === undefined
+                  {restaurantData.closing_time.friday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.closing_time["4"],
+                        restaurantData.closing_time.friday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -224,10 +224,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 5 ? true : false}
                 >
-                  {restaurantData.opening_time["5"] === undefined
+                  {restaurantData.opening_time.saturday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.opening_time["5"],
+                        restaurantData.opening_time.saturday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -235,10 +235,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 5 ? true : false}
                 >
-                  {restaurantData.closing_time["5"] === undefined
+                  {restaurantData.closing_time.saturday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.closing_time["5"],
+                        restaurantData.closing_time.saturday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -246,10 +246,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 6 ? true : false}
                 >
-                  {restaurantData.opening_time["6"] === undefined
+                  {restaurantData.opening_time.sunday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.opening_time["6"],
+                        restaurantData.opening_time.sunday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
@@ -257,10 +257,10 @@ class RestaurantGrid extends Component {
                   textAlign="center"
                   positive={this.state.today === 6 ? true : false}
                 >
-                  {restaurantData.closing_time["6"] === undefined
+                  {restaurantData.closing_time.sunday === undefined
                     ? "Closed"
                     : moment(
-                        restaurantData.closing_time["6"],
+                        restaurantData.closing_time.sunday,
                         "hh:mm A"
                       ).format("hh:mm A")}
                 </Table.Cell>
