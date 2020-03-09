@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Popup, Icon, List, Image, Input } from "semantic-ui-react";
-
+import { addCollection } from "../actions/collectionsactions";
 class Collectionpopup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { isOpen: false };
+    this.state = { isOpen: false, value: "" };
   }
 
   handleOpen = () => {
@@ -16,6 +16,15 @@ class Collectionpopup extends Component {
   handleClose = () => {
     this.setState({ isOpen: false });
   };
+
+  handleClick() {
+    this.props.addCollection(this.props.currentUser.id, this.state.value);
+    this.setState({ value: "" });
+  }
+
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+  }
 
   render() {
     return (
@@ -33,39 +42,40 @@ class Collectionpopup extends Component {
       >
         <List selection verticalAlign="middle">
           <List.Item>
-          <Icon
-              name="folder"
-              size="large"
-            />
+            <Icon name="folder" size="large" />
             <List.Content>
               <List.Header>Helen</List.Header>
             </List.Content>
           </List.Item>
           <List.Item>
-          <Icon
-              name="folder"
-              size="large"
-            />
+            <Icon name="folder" size="large" />
             <List.Content>
               <List.Header>Christian</List.Header>
             </List.Content>
           </List.Item>
           <List.Item>
-            <Icon
-              name="folder"
-              size="large"
-            />
+            <Icon name="folder" size="large" />
             <List.Content>
               <List.Header>Daniel</List.Header>
             </List.Content>
           </List.Item>
           <List.Item>
             <List.Content>
-            Create New
+              Create New
               <List.Header>
                 <Input
-                  icon={<Icon name="add" inverted circular link />}
+                  icon={
+                    <Icon
+                      name="add"
+                      inverted
+                      circular
+                      link
+                      onClick={() => this.handleClick()}
+                    />
+                  }
                   placeholder="Search..."
+                  value={this.state.value}
+                  onChange={e => this.handleChange(e)}
                 />
               </List.Header>
             </List.Content>
@@ -76,4 +86,8 @@ class Collectionpopup extends Component {
   }
 }
 
-export default connect(null, null)(Collectionpopup);
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser
+});
+
+export default connect(mapStateToProps, { addCollection })(Collectionpopup);

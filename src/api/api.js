@@ -113,17 +113,14 @@ export const filterRestaurants = (page, day, time, token) => {
 };
 
 export const filterNameRestaurants = (page, name, token) => {
-  return fetch(
-    `http://localhost:8000/api/v1/names/${name}?page=${page.page}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Token ${token}`
-      }
+  return fetch(`http://localhost:8000/api/v1/names/${name}?page=${page.page}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Token ${token}`
     }
-  )
+  })
     .then(resp => resp.json())
     .then(data => {
       if (data.error) {
@@ -138,6 +135,26 @@ export const filterNameRestaurants = (page, name, token) => {
           nextPage: nextPage,
           numPages: Math.ceil(data.count / 10)
         };
+      }
+    });
+};
+
+export const createCollectionApi = (userId, collectionName, token) => {
+  return fetch("http://localhost:8000/api/v1/collections/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Token ${token}`
+    },
+    body: JSON.stringify({ user: userId, name: collectionName })
+  })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.error) {
+        throw data.error;
+      } else {
+        return data;
       }
     });
 };
