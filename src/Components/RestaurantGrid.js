@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Card, Image, Button, Dimmer, Loader, Table } from "semantic-ui-react";
-import logo from "../logo.png";
+import { Table } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getAllRestaurants } from "../actions/restaurantactions";
 import moment from "moment";
 import _ from "lodash";
 import Spinner from "./Spinner";
+import Collectionpopup from './Collectionpopup';
+
 
 class RestaurantGrid extends Component {
   state = {
@@ -41,6 +42,10 @@ class RestaurantGrid extends Component {
     if (newprops.isLoading && !this.props.isLoading) {
       this.setState({ data: this.props.data });
     }
+  }
+
+  addCollection(e) {
+    console.log(e.target.textContent);
   }
 
   render() {
@@ -109,7 +114,7 @@ class RestaurantGrid extends Component {
           <Table.Body>
             {this.state.data.map((restaurantData, index) => (
               <Table.Row key={index}>
-                <Table.Cell>{restaurantData.restaurant.name}</Table.Cell>
+                <Table.Cell><Collectionpopup content={restaurantData.restaurant.name} /></Table.Cell>
                 <Table.Cell
                   textAlign="center"
                   positive={this.state.today === 0 ? true : false}

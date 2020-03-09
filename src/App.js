@@ -7,6 +7,7 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import "semantic-ui-css/semantic.min.css";
 import Home from "./Components/Home";
+import Collection from "./Components/Collection";
 
 class App extends Component {
   state = {};
@@ -35,7 +36,7 @@ class App extends Component {
   };
 
   render() {
-    if (this.state.isLoading) {
+    if (this.state.isLoading || this.state.isLoading === undefined) {
       return <div>Loading your page!</div>;
     }
     if (this.state.isAuthenticated) {

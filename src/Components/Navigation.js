@@ -21,7 +21,9 @@ class Navigation extends Component {
     return (
       <Segment raised size="mini">
         <Menu secondary>
-          <Menu.Item header name="nav" />
+          <Menu.Item header>
+            Welcome {this.props.currentUser.username}
+            </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item
               link
@@ -49,4 +51,8 @@ class Navigation extends Component {
   }
 }
 
-export default withRouter(connect(null, { logoutUser })(Navigation));
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser
+});
+
+export default withRouter(connect(mapStateToProps, { logoutUser })(Navigation));
