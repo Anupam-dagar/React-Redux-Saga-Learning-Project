@@ -5,8 +5,8 @@ import { getAllRestaurants } from "../actions/restaurantactions";
 import moment from "moment";
 import _ from "lodash";
 import Spinner from "./Spinner";
-import Collectionpopup from './Collectionpopup';
-
+import Collectionpopup from "./Collectionpopup";
+import { getCollections } from "../actions/collectionsactions";
 
 class RestaurantGrid extends Component {
   state = {
@@ -35,7 +35,7 @@ class RestaurantGrid extends Component {
   };
   componentDidMount() {
     this.props.getAllRestaurants(1);
-    this.setState({ today: moment().isoWeekday() - 1 });
+    this.props.getCollections(this.props.currentUser.id);
   }
 
   componentDidUpdate(newprops) {
@@ -114,7 +114,9 @@ class RestaurantGrid extends Component {
           <Table.Body>
             {this.state.data.map((restaurantData, index) => (
               <Table.Row key={index}>
-                <Table.Cell><Collectionpopup content={restaurantData.restaurant.name} /></Table.Cell>
+                <Table.Cell>
+                  <Collectionpopup content={restaurantData.restaurant.name} />
+                </Table.Cell>
                 <Table.Cell
                   textAlign="center"
                   positive={this.state.today === 0 ? true : false}
@@ -279,6 +281,7 @@ class RestaurantGrid extends Component {
 }
 
 const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser,
   prev: state.restaurant.restaurants.prev,
   next: state.restaurant.restaurants.next,
   count: state.restaurant.restaurants.count,
@@ -287,4 +290,6 @@ const mapStateToProps = state => ({
   error: state.restaurant.error
 });
 
-export default connect(mapStateToProps, { getAllRestaurants })(RestaurantGrid);
+export default connect(mapStateToProps, { getAllRestaurants, getCollections })(
+  RestaurantGrid
+);

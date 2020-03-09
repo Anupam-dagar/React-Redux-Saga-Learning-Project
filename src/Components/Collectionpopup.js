@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Popup, Icon, List, Image, Input } from "semantic-ui-react";
-import { addCollection } from "../actions/collectionsactions";
+import { addCollection, getCollections } from "../actions/collectionsactions";
 class Collectionpopup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { isOpen: false, value: "" };
+    this.state = { isOpen: false, value: "", collections: [] };
   }
 
   handleOpen = () => {
@@ -26,6 +26,18 @@ class Collectionpopup extends Component {
     this.setState({ value: e.target.value });
   }
 
+  componentDidMount() {
+    this.setState({ collections: this.props.collections });
+  }
+
+  componentDidUpdate(newprops) {
+    if (newprops.newCollection !== this.props.newCollection) {
+      this.setState({
+        collections: [...this.state.collections, this.props.newCollection]
+      });
+    }
+  }
+
   render() {
     return (
       <Popup
@@ -41,24 +53,15 @@ class Collectionpopup extends Component {
         position="right center"
       >
         <List selection verticalAlign="middle">
-          <List.Item>
-            <Icon name="folder" size="large" />
-            <List.Content>
-              <List.Header>Helen</List.Header>
-            </List.Content>
-          </List.Item>
-          <List.Item>
-            <Icon name="folder" size="large" />
-            <List.Content>
-              <List.Header>Christian</List.Header>
-            </List.Content>
-          </List.Item>
-          <List.Item>
-            <Icon name="folder" size="large" />
-            <List.Content>
-              <List.Header>Daniel</List.Header>
-            </List.Content>
-          </List.Item>
+          {this.state.collections.map((collection, index) => (
+            <List.Item key={index}>
+              <Icon name="folder" size="large" />
+              <List.Content>
+                <List.Header>{collection.name}</List.Header>
+              </List.Content>
+            </List.Item>
+          ))}
+
           <List.Item>
             <List.Content>
               Create New
@@ -87,7 +90,11 @@ class Collectionpopup extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser,
+  collections: state.collections.collections.results,
+  newCollection: state.collections.newCollection
 });
 
-export default connect(mapStateToProps, { addCollection })(Collectionpopup);
+export default connect(mapStateToProps, { addCollection, getCollections })(
+  Collectionpopup
+);

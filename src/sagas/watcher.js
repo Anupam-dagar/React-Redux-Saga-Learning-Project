@@ -1,7 +1,7 @@
 import { takeLatest, all } from "redux-saga/effects";
 import { loginUser, signupUser, getUserProfile, logoutUser } from "./authsagas";
 import { getRestaurants, getFilteredRestaurants, getNameRestaurants } from "./restaurantsagas";
-import { createCollection } from './collectionssagas';
+import { createCollection, getCollections } from './collectionssagas';
 import {
   REQUEST_LOGIN_USER,
   REQUEST_SIGNUP_USER,
@@ -10,7 +10,8 @@ import {
   REQUEST_ALL_RESTAURANTS,
   REQUEST_FILTER_RESTAURANTS,
   REQUEST_NAME_RESTAURANTS,
-  REQUEST_CREATE_COLLECTION
+  REQUEST_CREATE_COLLECTION,
+  REQUEST_ALL_COLLECTION
 } from "../actions/types";
 
 export default function* watchUsers() {
@@ -22,6 +23,7 @@ export default function* watchUsers() {
     takeLatest(REQUEST_ALL_RESTAURANTS, getRestaurants),
     takeLatest(REQUEST_FILTER_RESTAURANTS, getFilteredRestaurants),
     takeLatest(REQUEST_NAME_RESTAURANTS, getNameRestaurants),
-    takeLatest(REQUEST_CREATE_COLLECTION, createCollection)
+    takeLatest(REQUEST_CREATE_COLLECTION, createCollection),
+    takeLatest(REQUEST_ALL_COLLECTION, getCollections)
   ]);
 }

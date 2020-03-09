@@ -158,3 +158,22 @@ export const createCollectionApi = (userId, collectionName, token) => {
       }
     });
 };
+
+export const getCollectionsApi = (userId, token) => {
+  return fetch(`http://localhost:8000/api/v1/collections/create/${userId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Token ${token}`
+    },
+  })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.error) {
+        throw data.error;
+      } else {
+        return data;
+      }
+    });
+};
