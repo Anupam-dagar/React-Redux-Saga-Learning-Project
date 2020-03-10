@@ -147,7 +147,7 @@ export const createCollectionApi = (userId, collectionName, token) => {
       Accept: "application/json",
       Authorization: `Token ${token}`
     },
-    body: JSON.stringify({ user: userId, name: collectionName })
+    body: JSON.stringify({ user: userId, name: collectionName, collaborators: [userId] })
   })
     .then(resp => resp.json())
     .then(data => {
@@ -160,7 +160,7 @@ export const createCollectionApi = (userId, collectionName, token) => {
 };
 
 export const getCollectionsApi = (userId, token) => {
-  return fetch(`http://localhost:8000/api/v1/collections/create/${userId}`, {
+  return fetch(`http://localhost:8000/api/v1/collections/${userId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
