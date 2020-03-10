@@ -39,6 +39,9 @@ class RestaurantGrid extends Component {
   }
 
   componentDidUpdate(newprops) {
+    if (this.props.isLoading){
+      this.props.getCollections(this.props.currentUser.id);
+    }
     if (newprops.isLoading && !this.props.isLoading) {
       this.setState({ data: this.props.data });
     }
@@ -115,7 +118,7 @@ class RestaurantGrid extends Component {
             {this.state.data.map((restaurantData, index) => (
               <Table.Row key={index}>
                 <Table.Cell>
-                  <Collectionpopup content={restaurantData.restaurant.name} />
+                  <Collectionpopup restaurantId={restaurantData.id} content={restaurantData.restaurant.name} />
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"

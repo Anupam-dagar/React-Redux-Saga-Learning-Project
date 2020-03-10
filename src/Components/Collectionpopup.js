@@ -1,12 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button, Popup, Icon, List, Image, Input } from "semantic-ui-react";
-import { addCollection, getCollections } from "../actions/collectionsactions";
+import {
+  addCollection,
+  getCollections,
+  addRestaurantCollection
+} from "../actions/collectionsactions";
+import Spinner from "./Spinner";
 class Collectionpopup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { isOpen: false, value: "", collections: [] };
+    this.state = {
+      isOpen: false,
+      value: "",
+      collections: [],
+      restaurantId: this.props.restaurantId
+    };
   }
 
   handleOpen = () => {
@@ -26,12 +36,16 @@ class Collectionpopup extends Component {
     this.setState({ value: e.target.value });
   }
 
-  componentDidMount() {
-    this.setState({ collections: this.props.collections });
+  addToCollection(collection){
+    this.props.addRestaurantCollection(collection.id, this.state.restaurantId);
   }
 
   componentDidUpdate(newprops) {
+    if (newprops.collections !== this.props.collections) {
+      this.setState({ collections: this.props.collections });
+    }
     if (newprops.newCollection !== this.props.newCollection) {
+      this.props.addRestaurantCollection(this.props.newCollection.id, this.state.restaurantId);
       this.setState({
         collections: [...this.state.collections, this.props.newCollection]
       });
@@ -53,14 +67,19 @@ class Collectionpopup extends Component {
         position="right center"
       >
         <List selection verticalAlign="middle">
-          {this.state.collections.map((collection, index) => (
-            <List.Item key={index}>
-              <Icon name="folder" size="large" />
-              <List.Content>
-                <List.Header>{collection.name}</List.Header>
-              </List.Content>
-            </List.Item>
-          ))}
+          {this.props.isLoading ? (
+            <Spinner />
+          ) : (
+            this.state.collections.map((collection, index) => (
+              <List.Item key={index} onClick={() => this.addToCollection(collection)}>
+                <Icon name="folder" size="large" />
+                <List.Content>
+                  <List.Header>{collection.name}</List.Header>
+                </List.Content>
+                {/* <Icon name="check" color="green" size="large" /> */}
+              </List.Item>
+            ))
+          )}
 
           <List.Item>
             <List.Content>
@@ -76,7 +95,7 @@ class Collectionpopup extends Component {
                       onClick={() => this.handleClick()}
                     />
                   }
-                  placeholder="Search..."
+                  placeholder="Create and add to Collection"
                   value={this.state.value}
                   onChange={e => this.handleChange(e)}
                 />
@@ -92,9 +111,12 @@ class Collectionpopup extends Component {
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   collections: state.collections.collections.results,
-  newCollection: state.collections.newCollection
+  newCollection: state.collections.newCollection,
+  isLoading: state.collections.isLoading
 });
 
-export default connect(mapStateToProps, { addCollection, getCollections })(
-  Collectionpopup
-);
+export default connect(mapStateToProps, {
+  addCollection,
+  getCollections,
+  addRestaurantCollection
+})(Collectionpopup);

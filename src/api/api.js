@@ -147,7 +147,11 @@ export const createCollectionApi = (userId, collectionName, token) => {
       Accept: "application/json",
       Authorization: `Token ${token}`
     },
-    body: JSON.stringify({ user: userId, name: collectionName, collaborators: [userId] })
+    body: JSON.stringify({
+      user: userId,
+      name: collectionName,
+      collaborators: [userId]
+    })
   })
     .then(resp => resp.json())
     .then(data => {
@@ -166,7 +170,35 @@ export const getCollectionsApi = (userId, token) => {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: `Token ${token}`
+    }
+  })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.error) {
+        throw data.error;
+      } else {
+        return data;
+      }
+    });
+};
+
+export const addRestaurantCollectionsApi = (
+  collectionId,
+  restaurantId,
+  token
+) => {
+  console.log('api', collectionId, restaurantId, token);
+  return fetch(`http://localhost:8000/api/v1/collections/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Token ${token}`
     },
+    body: JSON.stringify({
+      restaurant_collection: collectionId,
+      restaurant: restaurantId
+    })
   })
     .then(resp => resp.json())
     .then(data => {

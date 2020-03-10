@@ -4,7 +4,10 @@ import {
   FAILURE_CREATE_COLLECTION,
   REQUEST_ALL_COLLECTION,
   SUCCESS_ALL_COLLECTION,
-  FAILURE_ALL_COLLECTION
+  FAILURE_ALL_COLLECTION,
+  REQUEST_ADD_RESTAURANT_TO_COLLECTION,
+  SUCCESS_ADD_RESTAURANT_TO_COLLECTION,
+  FAILURE_ADD_RESTAURANT_TO_COLLECTION
 } from "../actions/types";
 
 const initialState = {
@@ -28,19 +31,33 @@ export default function(state = initialState, action) {
         error: action.payload
       };
     case REQUEST_ALL_COLLECTION:
-        return {...state, isLoading: true};
+      return { ...state, isLoading: true };
     case SUCCESS_ALL_COLLECTION:
-        return {
-            ...state,
-            collections: action.payload,
-            isLoading: false
-        }
+      return {
+        ...state,
+        collections: action.payload,
+        isLoading: false
+      };
     case FAILURE_ALL_COLLECTION:
-        return {
-            ...state,
-            error: action.payload,
-            isLoading: false
-        }
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
+      };
+    case REQUEST_ADD_RESTAURANT_TO_COLLECTION:
+      return { ...state, isLoading: true };
+    case SUCCESS_ADD_RESTAURANT_TO_COLLECTION:
+      return {
+        ...state,
+        addedCollection: action.payload,
+        isLoading: false
+      };
+    case FAILURE_ADD_RESTAURANT_TO_COLLECTION:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false
+      };
     default:
       return state;
   }

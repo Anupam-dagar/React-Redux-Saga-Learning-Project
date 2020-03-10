@@ -1,4 +1,4 @@
-import { REQUEST_CREATE_COLLECTION, REQUEST_ALL_COLLECTION } from './types';
+import { REQUEST_CREATE_COLLECTION, REQUEST_ALL_COLLECTION, REQUEST_ADD_RESTAURANT_TO_COLLECTION } from './types';
 
 export const addCollection = (userId, collectionName) => {
   console.log("REQUEST_FILTER_RESTAURANTS action received");
@@ -14,5 +14,14 @@ export const getCollections = (userId) => {
   return {
     type: REQUEST_ALL_COLLECTION,
     userId
+  }
+}
+
+export const addRestaurantCollection = (collectionId, restaurantId) => {
+  console.log('REQUEST_ADD_RESTAURANT_TO_COLLECTION actions received')
+  return {
+    type: REQUEST_ADD_RESTAURANT_TO_COLLECTION,
+    collectionId,
+    restaurantId
   }
 }
