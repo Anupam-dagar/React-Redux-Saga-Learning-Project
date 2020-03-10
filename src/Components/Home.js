@@ -22,12 +22,11 @@ class Home extends Component {
               <Container>
                 <SearchBar />
               </Container>
-              <Divider hidden />
-              <RestaurantGrid />
-              <Divider hidden />
               <Container textAlign="center">
                 <PaginationBar />
               </Container>
+              <Divider hidden />
+              <RestaurantGrid />
             </Container>
           </Route>
         </Switch>

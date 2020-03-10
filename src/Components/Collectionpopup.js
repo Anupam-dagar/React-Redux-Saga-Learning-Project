@@ -35,7 +35,7 @@ class Collectionpopup extends Component {
 
   handleClick() {
     this.props.addCollection(this.props.currentUser.id, this.state.value);
-    this.setState({ value: "" });
+    this.setState({ value: "", partOfCollections: [...this.state.partOfCollections, this.state.value] });
   }
 
   handleChange(e) {

@@ -36,6 +36,7 @@ class RestaurantGrid extends Component {
   componentDidMount() {
     this.props.getAllRestaurants(1);
     this.props.getCollections(this.props.currentUser.id);
+    this.setState({ today: moment().format('dddd').toLowerCase()});
   }
 
   componentDidUpdate(newprops) {
@@ -122,7 +123,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 0 ? true : false}
+                  positive={this.state.today === 'monday' ? true : false}
                 >
                   {restaurantData.opening_time.monday === undefined
                     ? "Closed"
@@ -133,7 +134,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 0 ? true : false}
+                  positive={this.state.today === 'monday' ? true : false}
                 >
                   {restaurantData.closing_time.monday === undefined
                     ? "Closed"
@@ -144,7 +145,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 1 ? true : false}
+                  positive={this.state.today === 'tuesday' ? true : false}
                 >
                   {restaurantData.opening_time.tuesday === undefined
                     ? "Closed"
@@ -155,7 +156,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 1 ? true : false}
+                  positive={this.state.today === 'tuesday' ? true : false}
                 >
                   {restaurantData.closing_time.tuesday === undefined
                     ? "Closed"
@@ -166,7 +167,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 2 ? true : false}
+                  positive={this.state.today === 'wednesday' ? true : false}
                 >
                   {restaurantData.opening_time.wednesday === undefined
                     ? "Closed"
@@ -177,7 +178,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 2 ? true : false}
+                  positive={this.state.today === 'wednesday' ? true : false}
                 >
                   {restaurantData.closing_time.wednesday === undefined
                     ? "Closed"
@@ -188,7 +189,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 3 ? true : false}
+                  positive={this.state.today === 'thursday' ? true : false}
                 >
                   {restaurantData.opening_time.thursday === undefined
                     ? "Closed"
@@ -199,7 +200,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 3 ? true : false}
+                  positive={this.state.today === 'thursday' ? true : false}
                 >
                   {restaurantData.closing_time.thursday === undefined
                     ? "Closed"
@@ -210,7 +211,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 4 ? true : false}
+                  positive={this.state.today === 'friday' ? true : false}
                 >
                   {restaurantData.opening_time.friday === undefined
                     ? "Closed"
@@ -221,7 +222,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 4 ? true : false}
+                  positive={this.state.today === 'friday' ? true : false}
                 >
                   {restaurantData.closing_time.friday === undefined
                     ? "Closed"
@@ -232,7 +233,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 5 ? true : false}
+                  positive={this.state.today === 'saturday' ? true : false}
                 >
                   {restaurantData.opening_time.saturday === undefined
                     ? "Closed"
@@ -243,7 +244,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 5 ? true : false}
+                  positive={this.state.today === 'saturday' ? true : false}
                 >
                   {restaurantData.closing_time.saturday === undefined
                     ? "Closed"
@@ -254,7 +255,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 6 ? true : false}
+                  positive={this.state.today === 'sunday' ? true : false}
                 >
                   {restaurantData.opening_time.sunday === undefined
                     ? "Closed"
@@ -265,7 +266,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 6 ? true : false}
+                  positive={this.state.today === 'sunday' ? true : false}
                 >
                   {restaurantData.closing_time.sunday === undefined
                     ? "Closed"
