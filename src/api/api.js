@@ -187,7 +187,6 @@ export const addRestaurantCollectionsApi = (
   restaurantId,
   token
 ) => {
-  console.log('api', collectionId, restaurantId, token);
   return fetch(`http://localhost:8000/api/v1/collections/add`, {
     method: "POST",
     headers: {
@@ -200,6 +199,28 @@ export const addRestaurantCollectionsApi = (
       restaurant: restaurantId
     })
   })
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.error) {
+        throw data.error;
+      } else {
+        return data;
+      }
+    });
+};
+
+export const getRestaurantCollectionsApi = (userId, restaurantId, token) => {
+  return fetch(
+    `http://localhost:8000/api/v1/collections/${userId}/restaurants/${restaurantId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Token ${token}`
+      }
+    }
+  )
     .then(resp => resp.json())
     .then(data => {
       if (data.error) {

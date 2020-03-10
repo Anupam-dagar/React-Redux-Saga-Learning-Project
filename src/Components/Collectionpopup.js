@@ -4,7 +4,8 @@ import { Button, Popup, Icon, List, Image, Input } from "semantic-ui-react";
 import {
   addCollection,
   getCollections,
-  addRestaurantCollection
+  addRestaurantCollection,
+  getRestaurantCollection
 } from "../actions/collectionsactions";
 import Spinner from "./Spinner";
 class Collectionpopup extends Component {
@@ -15,11 +16,16 @@ class Collectionpopup extends Component {
       isOpen: false,
       value: "",
       collections: [],
-      restaurantId: this.props.restaurantId
+      restaurantId: this.props.restaurantId,
+      partOfCollections: []
     };
   }
 
   handleOpen = () => {
+    this.props.getRestaurantCollection(
+      this.props.currentUser.id,
+      this.state.restaurantId
+    );
     this.setState({ isOpen: true });
   };
 
@@ -36,8 +42,9 @@ class Collectionpopup extends Component {
     this.setState({ value: e.target.value });
   }
 
-  addToCollection(collection){
+  addToCollection(collection, collectionName) {
     this.props.addRestaurantCollection(collection.id, this.state.restaurantId);
+    this.setState({partOfCollections: [...this.state.partOfCollections, collectionName]});
   }
 
   componentDidUpdate(newprops) {
@@ -45,10 +52,16 @@ class Collectionpopup extends Component {
       this.setState({ collections: this.props.collections });
     }
     if (newprops.newCollection !== this.props.newCollection) {
-      this.props.addRestaurantCollection(this.props.newCollection.id, this.state.restaurantId);
+      this.props.addRestaurantCollection(
+        this.props.newCollection.id,
+        this.state.restaurantId
+      );
       this.setState({
         collections: [...this.state.collections, this.props.newCollection]
       });
+    }
+    if (newprops.partOfCollections !== this.props.partOfCollections) {
+      this.setState({ partOfCollections: this.props.partOfCollections });
     }
   }
 
@@ -71,12 +84,15 @@ class Collectionpopup extends Component {
             <Spinner />
           ) : (
             this.state.collections.map((collection, index) => (
-              <List.Item key={index} onClick={() => this.addToCollection(collection)}>
+              <List.Item
+                key={index}
+                onClick={() => this.addToCollection(collection, collection.name)}
+              >
                 <Icon name="folder" size="large" />
                 <List.Content>
                   <List.Header>{collection.name}</List.Header>
                 </List.Content>
-                {/* <Icon name="check" color="green" size="large" /> */}
+                {this.state.partOfCollections.includes(collection.name) && <Icon name="check" color="green" size="large" />}
               </List.Item>
             ))
           )}
@@ -112,11 +128,13 @@ const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   collections: state.collections.collections.results,
   newCollection: state.collections.newCollection,
-  isLoading: state.collections.isLoading
+  isLoading: state.collections.isLoading,
+  partOfCollections: state.collections.partOfCollections
 });
 
 export default connect(mapStateToProps, {
   addCollection,
   getCollections,
-  addRestaurantCollection
+  addRestaurantCollection,
+  getRestaurantCollection
 })(Collectionpopup);
