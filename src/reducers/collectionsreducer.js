@@ -16,7 +16,10 @@ import {
   FAILURE_GET_RESTAURANTS_IN_COLLECTION,
   REQUEST_DELETE_RESTAURANTS_IN_COLLECTION,
   SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION,
-  FAILURE_DELETE_RESTAURANTS_IN_COLLECTION
+  FAILURE_DELETE_RESTAURANTS_IN_COLLECTION,
+  REQUEST_UPDATE_COLLECTION,
+  SUCCESS_UPDATE_COLLECTION,
+  FAILURE_UPDATE_COLLECTION
 } from "../actions/types";
 
 const initialState = {
@@ -98,9 +101,25 @@ export default function(state = initialState, action) {
     case REQUEST_DELETE_RESTAURANTS_IN_COLLECTION:
       return { ...state, isLoading: true };
     case SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION:
-      return { ...state, success: action.payload, restaurantData: action.restaurantData, isLoading: false };
+      return {
+        ...state,
+        success: action.payload,
+        restaurantData: action.restaurantData,
+        isLoading: false
+      };
     case FAILURE_DELETE_RESTAURANTS_IN_COLLECTION:
-      return { ...state, success: false, error: action.payload, isLoading: false };
+      return {
+        ...state,
+        success: false,
+        error: action.payload,
+        isLoading: false
+      };
+    case REQUEST_UPDATE_COLLECTION:
+      return { ...state, isLoading: true };
+    case SUCCESS_UPDATE_COLLECTION:
+      return { ...state, collection: action.payload, isLoading: false };
+    case FAILURE_UPDATE_COLLECTION:
+      return { ...state, isLoading: false, error: action.payload };
     default:
       return state;
   }

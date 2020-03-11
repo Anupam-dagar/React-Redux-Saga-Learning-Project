@@ -263,7 +263,6 @@ export const deleteRestaurantsInCollectionApi = (
   restaurantId,
   token
 ) => {
-  console.log(userId, collectionName, restaurantId, "api");
   return fetch(
     `http://localhost:8000/api/v1/collections/delete/${userId}/${collectionName}/restaurants/${restaurantId}`,
     {
@@ -282,4 +281,27 @@ export const deleteRestaurantsInCollectionApi = (
       throw resp.json();
     }
   });
+};
+
+export const updateRestaurantCollectionApi = (data, collectionId, token) => {
+  return fetch(
+    `http://localhost:8000/api/v1/collections/update/${collectionId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Token ${token}`
+      },
+      body: JSON.stringify(data)
+    }
+  )
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.error) {
+        throw data.error;
+      } else {
+        return data;
+      }
+    });
 };

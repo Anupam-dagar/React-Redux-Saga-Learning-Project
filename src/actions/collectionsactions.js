@@ -4,7 +4,8 @@ import {
   REQUEST_ADD_RESTAURANT_TO_COLLECTION,
   REQUEST_GET_RESTAURANT_PARTOF_COLLECTION,
   REQUEST_GET_RESTAURANTS_IN_COLLECTION,
-  REQUEST_DELETE_RESTAURANTS_IN_COLLECTION
+  REQUEST_DELETE_RESTAURANTS_IN_COLLECTION,
+  REQUEST_UPDATE_COLLECTION
 } from "./types";
 
 export const addCollection = (userId, collectionName) => {
@@ -58,5 +59,14 @@ export const deleteRestaurantInCollection = (userId, collectionName, restaurantI
     userId,
     collectionName,
     restaurantId
+  };
+};
+
+export const updateUserCollection = (data, collectionId) => {
+  console.log("REQUEST_UPDATE_COLLECTION actions received");
+  return {
+    type: REQUEST_UPDATE_COLLECTION,
+    data,
+    collectionId
   };
 };

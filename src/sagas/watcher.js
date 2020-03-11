@@ -11,7 +11,8 @@ import {
   addRestaurantCollection,
   getRestaurantCollection,
   getRestaurantsInCollection,
-  deleteRestaurantsInCollection
+  deleteRestaurantsInCollection,
+  updateRestaurantCollection
 } from "./collectionssagas";
 import {
   REQUEST_LOGIN_USER,
@@ -26,7 +27,8 @@ import {
   REQUEST_ADD_RESTAURANT_TO_COLLECTION,
   REQUEST_GET_RESTAURANT_PARTOF_COLLECTION,
   REQUEST_GET_RESTAURANTS_IN_COLLECTION,
-  REQUEST_DELETE_RESTAURANTS_IN_COLLECTION
+  REQUEST_DELETE_RESTAURANTS_IN_COLLECTION,
+  REQUEST_UPDATE_COLLECTION
 } from "../actions/types";
 
 export default function* watchUsers() {
@@ -49,6 +51,10 @@ export default function* watchUsers() {
       REQUEST_GET_RESTAURANTS_IN_COLLECTION,
       getRestaurantsInCollection
     ),
-    takeLatest(REQUEST_DELETE_RESTAURANTS_IN_COLLECTION, deleteRestaurantsInCollection)
+    takeLatest(
+      REQUEST_DELETE_RESTAURANTS_IN_COLLECTION,
+      deleteRestaurantsInCollection
+    ),
+    takeLatest(REQUEST_UPDATE_COLLECTION, updateRestaurantCollection)
   ]);
 }

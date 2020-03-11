@@ -21,6 +21,7 @@ import {
   deleteRestaurantInCollection
 } from "../actions/collectionsactions";
 import moment from "moment";
+import Collectioneditmodal from "./Collectioneditmodal";
 class Collection extends Component {
   state = { activeIndex: -1, collections: [], restaurants: [] };
 
@@ -57,6 +58,12 @@ class Collection extends Component {
     }
     if (newprops.deleteSuccess !== this.props.deleteSuccess) {
       this.setState({restaurants: this.props.restaurantData.results})
+    }
+    if (newprops.editedCollection !== this.props.editedCollection){
+      const collections = this.state.collections;
+      const collectionIndex = collections.findIndex(x => x.id == this.props.editedCollection.id);
+      collections[collectionIndex] = this.props.editedCollection;
+      this.setState({collections})
     }
   }
 
@@ -103,6 +110,7 @@ class Collection extends Component {
                 <Button icon labelPosition="right" compact circular>
                   Add a collaborator <Icon name="add" />
                 </Button>
+                <Collectioneditmodal collectionId={value.id}/>
                 <Divider hidden />
                 <Card.Group itemsPerRow={5}>
                   {this.props.resturantIsLoading ||
@@ -304,7 +312,8 @@ const mapStateToProps = state => ({
   resturantIsLoading: state.collections.resturantIsLoading,
   addedCollection: state.collections.addedCollection,
   deleteSuccess: state.collections.success,
-  restaurantData: state.collections.restaurantData
+  restaurantData: state.collections.restaurantData,
+  editedCollection: state.collections.collection
 });
 
 export default connect(mapStateToProps, {
