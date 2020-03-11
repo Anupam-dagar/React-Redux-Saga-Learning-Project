@@ -18,9 +18,6 @@ class RestaurantModal extends Component {
       collectionId: this.props.collectionId
     };
   }
-  componentDidUpdate() {
-    console.log(this.props);
-  }
 
   handleOpen = () => {
     this.props.getAllRestaurants(1);
@@ -62,12 +59,12 @@ class RestaurantModal extends Component {
                       icon
                       labelPosition="right"
                       circular
-                      onClick={e => {
+                      onClick={e =>
                         this.props.addRestaurantCollection(
                           this.state.collectionId,
                           value.id
-                        );
-                      }}
+                        )
+                      }
                     >
                       {value.restaurant.name}
                     </Button>

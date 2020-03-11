@@ -21,7 +21,7 @@ import {
 } from "../actions/collectionsactions";
 import moment from "moment";
 class Collection extends Component {
-  state = { activeIndex: -1 };
+  state = { activeIndex: -1, collections: [], restaurants: [] };
 
   handleClick = (e, titleProps, collectionName) => {
     const { index } = titleProps;
@@ -38,6 +38,19 @@ class Collection extends Component {
     this.props.getCollections(this.props.currentUser.id);
   }
 
+  componentDidUpdate(newprops) {
+    console.log(this.state,'sate');
+    if(newprops.collections !== this.props.collections) {
+      this.setState({collections: this.props.collections});
+    }
+    if (newprops.restaurants !== this.props.restaurants) {
+      this.setState({restaurants: this.props.restaurants})
+    }
+    if(newprops.addedCollection !== this.props.addedCollection){
+      this.setState({restaurants: [...this.state.restaurants, this.props.addedCollection]});
+    }
+  }
+
   render() {
     if (this.props.isLoading || this.props.isLoading === undefined) {
       return <Spinner />;
@@ -52,7 +65,7 @@ class Collection extends Component {
           </Header.Content>
         </Header>
         <Accordion fluid styled>
-          {this.props.collections.map((value, index) => (
+          {this.state.collections.map((value, index) => (
             <>
               <Accordion.Title
                 active={activeIndex === index}
@@ -87,8 +100,8 @@ class Collection extends Component {
                   this.props.resturantIsLoading === undefined ? (
                     <Spinner />
                   ) : (
-                    this.props.restaurants.map((value, index) => (
-                      <Card raised>
+                    this.state.restaurants.map((value, index) => (
+                      <Card key={index} raised>
                         <Card.Content>
                           <Card.Header
                             style={{
@@ -249,6 +262,7 @@ const mapStateToProps = state => ({
   collectionsCount: state.collections.collections.count,
   restaurants: state.collections.restaurants.results,
   resturantIsLoading: state.collections.resturantIsLoading,
+  addedCollection: state.collections.addedCollection
 });
 
 export default connect(mapStateToProps, {
