@@ -5,7 +5,8 @@ import {
   addCollection,
   getCollections,
   addRestaurantCollection,
-  getRestaurantCollection
+  getRestaurantCollection,
+  deleteRestaurantInCollection
 } from "../actions/collectionsactions";
 import Spinner from "./Spinner";
 class Collectionpopup extends Component {
@@ -43,9 +44,20 @@ class Collectionpopup extends Component {
     this.setState({ value: e.target.value });
   }
 
+  deleteFromCollection(userId, collectionName, restaurantId) {
+    this.props.deleteRestaurantInCollection(
+      userId,
+      collectionName,
+      restaurantId
+    );
+    this.setState({ isOpen: false });
+  }
+
   addToCollection(collection, collectionName) {
     this.props.addRestaurantCollection(collection.id, this.state.restaurantId);
-    this.setState({partOfCollections: [...this.state.partOfCollections, collectionName]});
+    this.setState({
+      partOfCollections: [...this.state.partOfCollections, collectionName]
+    });
   }
 
   componentDidUpdate(newprops) {
@@ -83,13 +95,25 @@ class Collectionpopup extends Component {
             this.state.collections.map((collection, index) => (
               <List.Item
                 key={index}
-                onClick={() => this.addToCollection(collection, collection.name)}
+                onClick={() => {
+                  if (this.state.partOfCollections.includes(collection.name)) {
+                    this.deleteFromCollection(
+                      this.props.currentUser.id,
+                      collection.name,
+                      this.state.restaurantId
+                    );
+                  } else {
+                    this.addToCollection(collection, collection.name);
+                  }
+                }}
               >
                 <Icon name="folder" size="large" />
                 <List.Content>
                   <List.Header>{collection.name}</List.Header>
                 </List.Content>
-                {this.state.partOfCollections.includes(collection.name) && <Icon name="check" color="green" size="large" />}
+                {this.state.partOfCollections.includes(collection.name) && (
+                  <Icon name="check" color="green" size="large" />
+                )}
               </List.Item>
             ))
           )}
@@ -133,5 +157,6 @@ export default connect(mapStateToProps, {
   addCollection,
   getCollections,
   addRestaurantCollection,
-  getRestaurantCollection
+  getRestaurantCollection,
+  deleteRestaurantInCollection
 })(Collectionpopup);
