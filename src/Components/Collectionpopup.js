@@ -35,7 +35,7 @@ class Collectionpopup extends Component {
 
   handleClick() {
     this.props.addCollection(this.props.currentUser.id, this.state.value);
-    this.setState({ value: "", partOfCollections: [...this.state.partOfCollections, this.state.value] });
+    this.setState({ value: "" });
   }
 
   handleChange(e) {
@@ -52,10 +52,6 @@ class Collectionpopup extends Component {
       this.setState({ collections: this.props.collections });
     }
     if (newprops.newCollection !== this.props.newCollection) {
-      this.props.addRestaurantCollection(
-        this.props.newCollection.id,
-        this.state.restaurantId
-      );
       this.setState({
         collections: [...this.state.collections, this.props.newCollection]
       });
