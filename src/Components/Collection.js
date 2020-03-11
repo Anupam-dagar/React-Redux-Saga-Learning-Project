@@ -7,102 +7,254 @@ import {
   Icon,
   Table,
   Label,
-  Header
+  Header,
+  Card,
+  List,
+  Segment,
+  Button
 } from "semantic-ui-react";
-
+import Spinner from "./Spinner";
+import {
+  getCollections,
+  getRestaurantCollection,
+  getRestaurantInCollection
+} from "../actions/collectionsactions";
+import moment from "moment";
 class Collection extends Component {
   state = { activeIndex: -1 };
 
-  handleClick = (e, titleProps) => {
+  handleClick = (e, titleProps, collectionName) => {
     const { index } = titleProps;
     const { activeIndex } = this.state;
     const newIndex = activeIndex === index ? -1 : index;
-
+    this.props.getRestaurantInCollection(
+      this.props.currentUser.id,
+      collectionName
+    );
     this.setState({ activeIndex: newIndex });
   };
+
+  componentDidMount() {
+    this.props.getCollections(this.props.currentUser.id);
+  }
+
   render() {
+    if (this.props.isLoading || this.props.isLoading === undefined) {
+      return <Spinner />;
+    }
     const { activeIndex } = this.state;
     return (
       <Container>
         <Header as="h2" icon textAlign="center">
           <Icon name="users" circular />
-          <Header.Content>3 Collections</Header.Content>
+          <Header.Content>
+            {this.props.collectionsCount} Collections
+          </Header.Content>
         </Header>
         <Accordion fluid styled>
-          <Accordion.Title
-            active={activeIndex === 0}
-            index={0}
-            onClick={this.handleClick}
-          >
-            <Icon name="dropdown" />
-            Collection 1
-            <Label circular style={{float:'right'}} as='a'>11 Collaborators</Label>
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 0}>
-            <Table celled>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Header</Table.HeaderCell>
-                  <Table.HeaderCell>Header</Table.HeaderCell>
-                  <Table.HeaderCell>Header</Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell>
-                    <Label ribbon>First</Label>
-                  </Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Cell</Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.Cell>Cell</Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
-                  <Table.Cell>Cell</Table.Cell>
-                </Table.Row>
-              </Table.Body>
-            </Table>
-          </Accordion.Content>
-
-          <Accordion.Title
-            active={activeIndex === 1}
-            index={1}
-            onClick={this.handleClick}
-          >
-            <Icon name="dropdown" />
-            Collection 2
-            <Label circular style={{float:'right'}} as='a'>5 Collaborators</Label>
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 1}>
-            <p>
-              This is a sample text.
-            </p>
-          </Accordion.Content>
-
-          <Accordion.Title
-            active={activeIndex === 2}
-            index={2}
-            onClick={this.handleClick}
-          >
-            <Icon name="dropdown" />
-            Collection 3
-            <Label circular style={{float:'right'}} as='a'>3 Collaborators</Label>
-          </Accordion.Title>
-          <Accordion.Content active={activeIndex === 2}>
-            <p>
-              This is a sample text
-            </p>
-          </Accordion.Content>
+          {this.props.collections.map((value, index) => (
+            <>
+              <Accordion.Title
+                active={activeIndex === index}
+                index={index}
+                onClick={(e, titleProps) =>
+                  this.handleClick(e, titleProps, value.name)
+                }
+              >
+                <span style={{ color: "black" }}>
+                  {index + 1}. {value.name}
+                </span>
+                <Label circular style={{ float: "right" }} as="a">
+                  {value.collaborators.length} Collaborators
+                </Label>
+                {value.user.username === this.props.currentUser.username ? (
+                  <Icon
+                    style={{ float: "right", color: "#FFBB48" }}
+                    name="chess queen"
+                  />
+                ) : (
+                  ""
+                )}
+              </Accordion.Title>
+              <Accordion.Content active={activeIndex === index}>
+                <Button icon labelPosition="right" compact circular>
+                  Add a restaurant <Icon name="add" />
+                </Button>
+                <Button icon labelPosition="right" compact circular>
+                  Add a collaborator <Icon name="add" />
+                </Button>
+                <Divider hidden />
+                <Card.Group itemsPerRow={4}>
+                  {this.props.resturantIsLoading ||
+                  this.props.resturantIsLoading === undefined ? (
+                    <Spinner />
+                  ) : (
+                    this.props.restaurants.map((value, index) => (
+                      <Card>
+                        <Card.Content>
+                          <Card.Header
+                            style={{
+                              marginBottom: "-0.5em",
+                              marginTop: "0.3em"
+                            }}
+                          >
+                            {value.restaurant.restaurant.name}
+                          </Card.Header>
+                        </Card.Content>
+                        <Card.Content>
+                          <List verticalAlign="middle">
+                            <List.Item>
+                              <List.Header>Monday</List.Header>
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}{" "}
+                              to{" "}
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}
+                            </List.Item>
+                            <List.Item>
+                              <List.Header>Tuesday</List.Header>
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}{" "}
+                              to{" "}
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}
+                            </List.Item>
+                            <List.Item>
+                              <List.Header>Wednesday</List.Header>
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}{" "}
+                              to{" "}
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}
+                            </List.Item>
+                            <List.Item>
+                              <List.Header>Thursday</List.Header>
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}{" "}
+                              to{" "}
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}
+                            </List.Item>
+                            <List.Item>
+                              <List.Header>Friday</List.Header>
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}{" "}
+                              to{" "}
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}
+                            </List.Item>
+                            <List.Item>
+                              <List.Header>Saturday</List.Header>
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}{" "}
+                              to{" "}
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}
+                            </List.Item>
+                            <List.Item>
+                              <List.Header>Sunday</List.Header>
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}{" "}
+                              to{" "}
+                              {value.restaurant.closing_time.sunday ===
+                              undefined
+                                ? "Closed"
+                                : moment(
+                                    value.restaurant.closing_time.sunday,
+                                    "hh:mm A"
+                                  ).format("hh:mm A")}
+                            </List.Item>
+                          </List>
+                        </Card.Content>
+                      </Card>
+                    ))
+                  )}
+                </Card.Group>
+              </Accordion.Content>
+            </>
+          ))}
         </Accordion>
       </Container>
     );
   }
 }
 
-export default connect(null, null)(Collection);
+const mapStateToProps = state => ({
+  currentUser: state.auth.currentUser,
+  collections: state.collections.collections.results,
+  isLoading: state.collections.isLoading,
+  collectionsCount: state.collections.collections.count,
+  restaurants: state.collections.restaurants.results,
+  resturantIsLoading: state.collections.resturantIsLoading
+});
+
+export default connect(mapStateToProps, {
+  getCollections,
+  getRestaurantCollection,
+  getRestaurantInCollection
+})(Collection);

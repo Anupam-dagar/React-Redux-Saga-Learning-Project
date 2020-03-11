@@ -2,7 +2,8 @@ import {
   REQUEST_CREATE_COLLECTION,
   REQUEST_ALL_COLLECTION,
   REQUEST_ADD_RESTAURANT_TO_COLLECTION,
-  REQUEST_GET_RESTAURANT_PARTOF_COLLECTION
+  REQUEST_GET_RESTAURANT_PARTOF_COLLECTION,
+  REQUEST_GET_RESTAURANTS_IN_COLLECTION
 } from "./types";
 
 export const addCollection = (userId, collectionName) => {
@@ -32,10 +33,19 @@ export const addRestaurantCollection = (collectionId, restaurantId) => {
 };
 
 export const getRestaurantCollection = (userId, restaurantId) => {
-  console.log("REQUEST_ADD_RESTAURANT_TO_COLLECTION actions received");
+  console.log("REQUEST_GET_RESTAURANT_PARTOF_COLLECTION actions received");
   return {
     type: REQUEST_GET_RESTAURANT_PARTOF_COLLECTION,
     userId,
     restaurantId
+  };
+};
+
+export const getRestaurantInCollection = (userId, collectionName) => {
+  console.log("REQUEST_GET_RESTAURANT_PARTOF_COLLECTION actions received");
+  return {
+    type: REQUEST_GET_RESTAURANTS_IN_COLLECTION,
+    userId,
+    collectionName
   };
 };

@@ -230,3 +230,25 @@ export const getRestaurantCollectionsApi = (userId, restaurantId, token) => {
       }
     });
 };
+
+export const getRestaurantsInCollectionApi = (userId, collectionName, token) => {
+  return fetch(
+    `http://localhost:8000/api/v1/collections/${userId}/${collectionName}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Token ${token}`
+      }
+    }
+  )
+    .then(resp => resp.json())
+    .then(data => {
+      if (data.error) {
+        throw data.error;
+      } else {
+        return data;
+      }
+    });
+};

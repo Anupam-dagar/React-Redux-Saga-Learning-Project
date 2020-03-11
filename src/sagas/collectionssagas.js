@@ -6,14 +6,17 @@ import {
   SUCCESS_ADD_RESTAURANT_TO_COLLECTION,
   FAILURE_ADD_RESTAURANT_TO_COLLECTION,
   SUCCESS_GET_RESTAURANT_PARTOF_COLLECTION,
-  FAILURE_GET_RESTAURANT_PARTOF_COLLECTION
+  FAILURE_GET_RESTAURANT_PARTOF_COLLECTION,
+  SUCCESS_GET_RESTAURANTS_IN_COLLECTION,
+  FAILURE_GET_RESTAURANTS_IN_COLLECTION
 } from "../actions/types";
 import { put, call } from "redux-saga/effects";
 import {
   createCollectionApi,
   getCollectionsApi,
   addRestaurantCollectionsApi,
-  getRestaurantCollectionsApi
+  getRestaurantCollectionsApi,
+  getRestaurantsInCollectionApi
 } from "../api/api";
 
 export function* createCollection(data) {
@@ -106,6 +109,29 @@ export function* getRestaurantCollection(data) {
     console.log(error);
     yield put({
       type: FAILURE_GET_RESTAURANT_PARTOF_COLLECTION,
+      payload: error
+    });
+  }
+}
+
+export function* getRestaurantsInCollection(data) {
+  const token = localStorage.getItem("token");
+  try {
+    const response = yield call(
+      getRestaurantsInCollectionApi,
+      data.userId,
+      data.collectionName,
+      token
+    );
+
+    yield put({
+      type: SUCCESS_GET_RESTAURANTS_IN_COLLECTION,
+      payload: response
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: FAILURE_GET_RESTAURANTS_IN_COLLECTION,
       payload: error
     });
   }
