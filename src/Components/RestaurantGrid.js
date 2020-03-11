@@ -35,14 +35,10 @@ class RestaurantGrid extends Component {
   };
   componentDidMount() {
     this.props.getAllRestaurants(1);
-    this.props.getCollections(this.props.currentUser.id);
     this.setState({ today: moment().format('dddd').toLowerCase()});
   }
 
   componentDidUpdate(newprops) {
-    if (this.props.isLoading){
-      this.props.getCollections(this.props.currentUser.id);
-    }
     if (newprops.isLoading && !this.props.isLoading) {
       this.setState({ data: this.props.data });
     }

@@ -22,6 +22,7 @@ class Collectionpopup extends Component {
   }
 
   handleOpen = () => {
+    this.props.getCollections(this.props.currentUser.id);
     this.props.getRestaurantCollection(
       this.props.currentUser.id,
       this.state.restaurantId
