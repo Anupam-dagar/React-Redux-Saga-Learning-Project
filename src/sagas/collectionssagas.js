@@ -8,7 +8,9 @@ import {
   SUCCESS_GET_RESTAURANT_PARTOF_COLLECTION,
   FAILURE_GET_RESTAURANT_PARTOF_COLLECTION,
   SUCCESS_GET_RESTAURANTS_IN_COLLECTION,
-  FAILURE_GET_RESTAURANTS_IN_COLLECTION
+  FAILURE_GET_RESTAURANTS_IN_COLLECTION,
+  SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION,
+  FAILURE_DELETE_RESTAURANTS_IN_COLLECTION
 } from "../actions/types";
 import { put, call } from "redux-saga/effects";
 import {
@@ -16,7 +18,8 @@ import {
   getCollectionsApi,
   addRestaurantCollectionsApi,
   getRestaurantCollectionsApi,
-  getRestaurantsInCollectionApi
+  getRestaurantsInCollectionApi,
+  deleteRestaurantsInCollectionApi
 } from "../api/api";
 
 export function* createCollection(data) {
@@ -132,6 +135,38 @@ export function* getRestaurantsInCollection(data) {
     console.log(error);
     yield put({
       type: FAILURE_GET_RESTAURANTS_IN_COLLECTION,
+      payload: error
+    });
+  }
+}
+
+export function* deleteRestaurantsInCollection(data) {
+  const token = localStorage.getItem("token");
+  try {
+    console.log(data,'saga')
+    const response = yield call(
+      deleteRestaurantsInCollectionApi,
+      data.userId,
+      data.collectionName,
+      data.restaurantId,
+      token
+    );
+    const restaurants = yield call(
+      getRestaurantsInCollectionApi,
+      data.userId,
+      data.collectionName,
+      token
+    );
+
+    yield put({
+      type: SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION,
+      payload: response,
+      restaurantData: restaurants
+    });
+  } catch (error) {
+    console.log(error);
+    yield put({
+      type: FAILURE_DELETE_RESTAURANTS_IN_COLLECTION,
       payload: error
     });
   }

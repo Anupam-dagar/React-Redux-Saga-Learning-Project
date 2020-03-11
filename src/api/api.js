@@ -231,7 +231,11 @@ export const getRestaurantCollectionsApi = (userId, restaurantId, token) => {
     });
 };
 
-export const getRestaurantsInCollectionApi = (userId, collectionName, token) => {
+export const getRestaurantsInCollectionApi = (
+  userId,
+  collectionName,
+  token
+) => {
   return fetch(
     `http://localhost:8000/api/v1/collections/${userId}/${collectionName}`,
     {
@@ -251,4 +255,31 @@ export const getRestaurantsInCollectionApi = (userId, collectionName, token) => 
         return data;
       }
     });
+};
+
+export const deleteRestaurantsInCollectionApi = (
+  userId,
+  collectionName,
+  restaurantId,
+  token
+) => {
+  console.log(userId, collectionName, restaurantId, "api");
+  return fetch(
+    `http://localhost:8000/api/v1/collections/delete/${userId}/${collectionName}/restaurants/${restaurantId}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Token ${token}`
+      }
+    }
+  ).then(resp => {
+    const response = {};
+    if (resp.status === 204) {
+      return { ...response, success: collectionName };
+    } else {
+      throw resp.json();
+    }
+  });
 };
