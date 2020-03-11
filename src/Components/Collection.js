@@ -5,15 +5,15 @@ import {
   Divider,
   Accordion,
   Icon,
-  Table,
   Label,
   Header,
   Card,
   List,
-  Segment,
   Button
 } from "semantic-ui-react";
 import Spinner from "./Spinner";
+import RestaurantModal from "./Addrestaurantmodal";
+
 import {
   getCollections,
   getRestaurantCollection,
@@ -77,20 +77,18 @@ class Collection extends Component {
                 )}
               </Accordion.Title>
               <Accordion.Content active={activeIndex === index}>
-                <Button icon labelPosition="right" compact circular>
-                  Add a restaurant <Icon name="add" />
-                </Button>
+                <RestaurantModal collectionId={value.id} />
                 <Button icon labelPosition="right" compact circular>
                   Add a collaborator <Icon name="add" />
                 </Button>
                 <Divider hidden />
-                <Card.Group itemsPerRow={4}>
+                <Card.Group itemsPerRow={5}>
                   {this.props.resturantIsLoading ||
                   this.props.resturantIsLoading === undefined ? (
                     <Spinner />
                   ) : (
                     this.props.restaurants.map((value, index) => (
-                      <Card>
+                      <Card raised>
                         <Card.Content>
                           <Card.Header
                             style={{
@@ -250,7 +248,7 @@ const mapStateToProps = state => ({
   isLoading: state.collections.isLoading,
   collectionsCount: state.collections.collections.count,
   restaurants: state.collections.restaurants.results,
-  resturantIsLoading: state.collections.resturantIsLoading
+  resturantIsLoading: state.collections.resturantIsLoading,
 });
 
 export default connect(mapStateToProps, {
