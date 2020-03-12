@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Popup, Icon, Input, Label, Message } from "semantic-ui-react";
+import { Popup, Icon, Input, Label, Message, Header } from "semantic-ui-react";
 import { updateUserCollection } from "../actions/collectionsactions";
 
 class CollectionEditModal extends Component {
@@ -63,7 +63,9 @@ class CollectionEditModal extends Component {
         onOpen={this.handleOpen}
         position="left center"
       >
+        <Header>Edit collection name</Header>
         <Input
+          focus
           icon={
             this.state.collections.includes(this.state.value) ? (
               ""
@@ -78,7 +80,7 @@ class CollectionEditModal extends Component {
               />
             )
           }
-          placeholder="Edit Collection name"
+          placeholder="Enter Collection name"
           value={this.state.value}
           onChange={e => this.handleChange(e)}
         />

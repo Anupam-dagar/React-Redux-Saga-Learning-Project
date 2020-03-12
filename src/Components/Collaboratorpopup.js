@@ -61,7 +61,7 @@ class CollaboratorPopup extends Component {
       <Popup
         trigger={
           <Button icon labelPosition="right" compact circular>
-            Add a collaborator <Icon name="add" />
+            Add or Remove collaborator <Icon name="add" />
           </Button>
         }
         on="click"
@@ -98,7 +98,6 @@ class CollaboratorPopup extends Component {
 
           <List.Item>
             <List.Content>
-              Create New
               <List.Header>
                 Add Collaborator
                 <Input
