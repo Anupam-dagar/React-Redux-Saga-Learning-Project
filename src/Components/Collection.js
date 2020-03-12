@@ -9,12 +9,13 @@ import {
   Header,
   Card,
   List,
-  Button
+  Button,
+  Grid
 } from "semantic-ui-react";
 import Spinner from "./Spinner";
 import RestaurantModal from "./Addrestaurantmodal";
-import CollaboratorPopup from './Collaboratorpopup';
-import CreateCollectionModal from './Createcollectionmodal';
+import CollaboratorPopup from "./Collaboratorpopup";
+import CreateCollectionModal from "./Createcollectionmodal";
 
 import {
   getCollections,
@@ -39,7 +40,11 @@ class Collection extends Component {
   };
 
   handleDeleteRestaurantInCollection(userId, collectionName, restaurantId) {
-    this.props.deleteRestaurantInCollection(userId,collectionName,restaurantId);
+    this.props.deleteRestaurantInCollection(
+      userId,
+      collectionName,
+      restaurantId
+    );
   }
 
   componentDidMount() {
@@ -59,16 +64,20 @@ class Collection extends Component {
       });
     }
     if (newprops.deleteSuccess !== this.props.deleteSuccess) {
-      this.setState({restaurants: this.props.restaurantData.results})
+      this.setState({ restaurants: this.props.restaurantData.results });
     }
-    if (newprops.editedCollection !== this.props.editedCollection){
+    if (newprops.editedCollection !== this.props.editedCollection) {
       const collections = this.state.collections;
-      const collectionIndex = collections.findIndex(x => x.id === this.props.editedCollection.id);
+      const collectionIndex = collections.findIndex(
+        x => x.id === this.props.editedCollection.id
+      );
       collections[collectionIndex] = this.props.editedCollection;
-      this.setState({collections})
+      this.setState({ collections });
     }
-    if(newprops.newCollection !== this.props.newCollection) {
-      this.setState({collections: [...this.state.collections, this.props.newCollection]});
+    if (newprops.newCollection !== this.props.newCollection) {
+      this.setState({
+        collections: [...this.state.collections, this.props.newCollection]
+      });
     }
   }
 
@@ -85,7 +94,7 @@ class Collection extends Component {
             {this.props.collectionsCount} Collections
           </Header.Content>
         </Header>
-        <CreateCollectionModal collections={this.props.collections}/>
+        <CreateCollectionModal collections={this.props.collections} />
         <Accordion fluid styled>
           {this.state.collections.map((value, index) => (
             <>
@@ -113,8 +122,15 @@ class Collection extends Component {
               </Accordion.Title>
               <Accordion.Content active={activeIndex === index}>
                 <RestaurantModal collectionId={value.id} />
-                <CollaboratorPopup collectionOwner={value.user.id} collectionId={value.id} collaborators={value.collaborators}/>
-                <Collectioneditmodal collections={this.props.collections} collectionId={value.id}/>
+                <CollaboratorPopup
+                  collectionOwner={value.user.id}
+                  collectionId={value.id}
+                  collaborators={value.collaborators}
+                />
+                <Collectioneditmodal
+                  collections={this.props.collections}
+                  collectionId={value.id}
+                />
                 <Divider hidden />
                 <Card.Group itemsPerRow={5}>
                   {this.props.resturantIsLoading ||
@@ -302,6 +318,13 @@ class Collection extends Component {
             </>
           ))}
         </Accordion>
+        <Divider hidden />
+        <Grid centered>
+          <Label basic size="large">
+            <Icon name="chess queen" style={{ color: "#FFBB48" }} /> Collection
+            Owner
+          </Label>
+        </Grid>
       </Container>
     );
   }
