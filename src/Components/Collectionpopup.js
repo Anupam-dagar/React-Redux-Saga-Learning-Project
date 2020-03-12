@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button, Popup, Icon, List, Input } from "semantic-ui-react";
+import { Button, Popup, Icon, List, Input, Message } from "semantic-ui-react";
 import {
   addCollection,
   getCollections,
@@ -58,6 +58,26 @@ class Collectionpopup extends Component {
     this.setState({
       partOfCollections: [...this.state.partOfCollections, collectionName]
     });
+  }
+
+  collectionValidation() {
+    for (let i = 0; i < this.state.collections.length; i++) {
+      if (
+        this.state.value === this.state.collections[i].name &&
+        this.state.collections[i].user.username ===
+          this.props.currentUser.username
+      ) {
+        console.log(
+          this.state.value,
+          this.state.collections[i].name,
+          this.state.collections[i].user.username,
+          this.props.currentUser.username,
+          "fasndk"
+        );
+        return true;
+      }
+    }
+    return false;
   }
 
   componentDidUpdate(newprops) {
@@ -124,18 +144,29 @@ class Collectionpopup extends Component {
               <List.Header>
                 <Input
                   icon={
-                    <Icon
-                      name="add"
-                      inverted
-                      circular
-                      link
-                      onClick={() => this.handleClick()}
-                    />
+                    this.collectionValidation() ? (
+                      ""
+                    ) : (
+                      <Icon
+                        name="add"
+                        inverted
+                        circular
+                        link
+                        onClick={() => this.handleClick()}
+                      />
+                    )
                   }
                   placeholder="Create Collection"
                   value={this.state.value}
                   onChange={e => this.handleChange(e)}
                 />
+                {this.collectionValidation() ? (
+                  <Message negative>
+                    <p>A collection with that name already exists</p>
+                  </Message>
+                ) : (
+                  ""
+                )}
               </List.Header>
             </List.Content>
           </List.Item>
