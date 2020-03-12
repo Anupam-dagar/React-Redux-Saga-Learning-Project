@@ -13,6 +13,7 @@ import {
 } from "semantic-ui-react";
 import Spinner from "./Spinner";
 import RestaurantModal from "./Addrestaurantmodal";
+import CollaboratorPopup from './Collaboratorpopup';
 
 import {
   getCollections,
@@ -107,9 +108,7 @@ class Collection extends Component {
               </Accordion.Title>
               <Accordion.Content active={activeIndex === index}>
                 <RestaurantModal collectionId={value.id} />
-                <Button icon labelPosition="right" compact circular>
-                  Add a collaborator <Icon name="add" />
-                </Button>
+                <CollaboratorPopup collectionOwner={value.user.id} collectionId={value.id} collaborators={value.collaborators}/>
                 <Collectioneditmodal collectionId={value.id}/>
                 <Divider hidden />
                 <Card.Group itemsPerRow={5}>
