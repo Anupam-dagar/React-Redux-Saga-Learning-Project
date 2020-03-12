@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Button, Popup, Icon, List, Image, Input } from "semantic-ui-react";
+import { Button, Popup, Icon, List, Input } from "semantic-ui-react";
 import {
   addCollection,
   getCollections,

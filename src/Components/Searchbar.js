@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu, Input, Icon } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import { connect } from "react-redux";
 import Filterinput from  './Filterinput';
 import Searchinput from './Searchinput';

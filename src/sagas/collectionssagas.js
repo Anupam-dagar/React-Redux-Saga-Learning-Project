@@ -11,7 +11,6 @@ import {
   FAILURE_GET_RESTAURANTS_IN_COLLECTION,
   SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION,
   FAILURE_DELETE_RESTAURANTS_IN_COLLECTION,
-  REQUEST_UPDATE_COLLECTION,
   SUCCESS_UPDATE_COLLECTION,
   FAILURE_UPDATE_COLLECTION
 } from "../actions/types";
@@ -105,9 +104,7 @@ export function* getRestaurantCollection(data) {
 
     const collectionsData = response.results;
     const collections = [];
-    collectionsData.map((value, index) => {
-      collections.push(value.restaurant_collection.name);
-    });
+    collectionsData.map((value, index) => collections.push(value.restaurant_collection.name));
     yield put({
       type: SUCCESS_GET_RESTAURANT_PARTOF_COLLECTION,
       payload: collections

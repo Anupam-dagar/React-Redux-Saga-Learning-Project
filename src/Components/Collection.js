@@ -61,7 +61,7 @@ class Collection extends Component {
     }
     if (newprops.editedCollection !== this.props.editedCollection){
       const collections = this.state.collections;
-      const collectionIndex = collections.findIndex(x => x.id == this.props.editedCollection.id);
+      const collectionIndex = collections.findIndex(x => x.id === this.props.editedCollection.id);
       collections[collectionIndex] = this.props.editedCollection;
       this.setState({collections})
     }
