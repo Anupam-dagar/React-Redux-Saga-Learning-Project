@@ -90,7 +90,6 @@ class CollaboratorPopup extends Component {
                 <Icon
                   style={{ color: "#FFBB48" }}
                   name="chess queen"
-                  color="gold"
                   size="large"
                 />
               )}

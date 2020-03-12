@@ -132,7 +132,7 @@ class Collectionpopup extends Component {
                       onClick={() => this.handleClick()}
                     />
                   }
-                  placeholder="Create and add to Collection"
+                  placeholder="Create Collection"
                   value={this.state.value}
                   onChange={e => this.handleChange(e)}
                 />

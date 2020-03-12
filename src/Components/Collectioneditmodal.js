@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Popup,
-  Icon,
-  Input,
-  Label
-} from "semantic-ui-react";
+import { Popup, Icon, Input, Label, Message } from "semantic-ui-react";
 import { updateUserCollection } from "../actions/collectionsactions";
 
 class CollectionEditModal extends Component {
@@ -15,8 +10,19 @@ class CollectionEditModal extends Component {
     this.state = {
       isOpen: false,
       value: "",
-      collectionId: this.props.collectionId
+      collectionId: this.props.collectionId,
+      collections: []
     };
+  }
+
+  componentDidMount() {
+    let collections = [];
+    this.props.collections.map((value, index) =>
+      value.user.username === this.props.currentUser.username
+        ? collections.push(value.name)
+        : ""
+    );
+    this.setState({ collections: collections });
   }
 
   handleOpen = () => {
@@ -28,7 +34,10 @@ class CollectionEditModal extends Component {
   };
 
   handleClick() {
-    this.props.updateUserCollection({name:this.state.value}, this.state.collectionId);
+    this.props.updateUserCollection(
+      { name: this.state.value },
+      this.state.collectionId
+    );
     this.setState({ value: "" });
   }
 
@@ -52,23 +61,34 @@ class CollectionEditModal extends Component {
         open={this.state.isOpen}
         onClose={this.handleClose}
         onOpen={this.handleOpen}
-        position="top center"
+        position="left center"
       >
         <Input
           icon={
-            <Icon
-              name="check"
-              color="green"
-              inverted
-              circular
-              link
-              onClick={() => this.handleClick()}
-            />
+            this.state.collections.includes(this.state.value) ? (
+              ""
+            ) : (
+              <Icon
+                name="check"
+                color="green"
+                inverted
+                circular
+                link
+                onClick={() => this.handleClick()}
+              />
+            )
           }
           placeholder="Edit Collection name"
           value={this.state.value}
           onChange={e => this.handleChange(e)}
         />
+        {this.state.collections.includes(this.state.value) ? (
+          <Message negative>
+            <p>A collection with that name already exists</p>
+          </Message>
+        ) : (
+          ""
+        )}
       </Popup>
     );
   }

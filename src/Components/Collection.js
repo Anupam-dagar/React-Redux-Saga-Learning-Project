@@ -14,6 +14,7 @@ import {
 import Spinner from "./Spinner";
 import RestaurantModal from "./Addrestaurantmodal";
 import CollaboratorPopup from './Collaboratorpopup';
+import CreateCollectionModal from './Createcollectionmodal';
 
 import {
   getCollections,
@@ -66,6 +67,9 @@ class Collection extends Component {
       collections[collectionIndex] = this.props.editedCollection;
       this.setState({collections})
     }
+    if(newprops.newCollection !== this.props.newCollection) {
+      this.setState({collections: [...this.state.collections, this.props.newCollection]});
+    }
   }
 
   render() {
@@ -81,6 +85,7 @@ class Collection extends Component {
             {this.props.collectionsCount} Collections
           </Header.Content>
         </Header>
+        <CreateCollectionModal collections={this.props.collections}/>
         <Accordion fluid styled>
           {this.state.collections.map((value, index) => (
             <>
@@ -109,7 +114,7 @@ class Collection extends Component {
               <Accordion.Content active={activeIndex === index}>
                 <RestaurantModal collectionId={value.id} />
                 <CollaboratorPopup collectionOwner={value.user.id} collectionId={value.id} collaborators={value.collaborators}/>
-                <Collectioneditmodal collectionId={value.id}/>
+                <Collectioneditmodal collections={this.props.collections} collectionId={value.id}/>
                 <Divider hidden />
                 <Card.Group itemsPerRow={5}>
                   {this.props.resturantIsLoading ||
@@ -312,7 +317,8 @@ const mapStateToProps = state => ({
   addedCollection: state.collections.addedCollection,
   deleteSuccess: state.collections.success,
   restaurantData: state.collections.restaurantData,
-  editedCollection: state.collections.collection
+  editedCollection: state.collections.collection,
+  newCollection: state.collections.newCollection
 });
 
 export default connect(mapStateToProps, {
