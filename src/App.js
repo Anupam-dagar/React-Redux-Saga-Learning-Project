@@ -52,7 +52,7 @@ class App extends Component {
       );
     }
     return (
-      <BrowserRouter basename="https://glintsfrontend.herokuapp.com/">
+      <BrowserRouter>
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
