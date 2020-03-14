@@ -42,7 +42,8 @@ export default function(state = initialState, action) {
         ...state,
         currentUser: {},
         isLoading: false,
-        isAuthenticated: false
+        isAuthenticated: false,
+        error:''
       };
     case FAILURE_LOGOUT_USER:
       return {
@@ -63,7 +64,7 @@ export default function(state = initialState, action) {
     case FAILURE_SIGNUP_USER:
       return {
         ...state,
-        currentUser: action.payload,
+        error: action.payload,
         isLoading: false,
         isAuthenticated: false
       };

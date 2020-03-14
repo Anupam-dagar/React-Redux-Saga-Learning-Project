@@ -23,10 +23,6 @@ class LoginForm extends Component {
     };
   }
 
-  componentDidMount() {
-    this.setState({ error: null });
-  }
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -37,15 +33,6 @@ class LoginForm extends Component {
     event.preventDefault();
     this.props.loginUser(this.state);
   };
-
-  componentDidUpdate(newprops) {
-    if (newprops.error !== this.props.error) {
-      this.setState({ error: this.props.error });
-    }
-    if (newprops.currentUser.username !== this.props.currentUser.username) {
-      this.props.history.push("/");
-    }
-  }
 
   render() {
     return (
@@ -93,6 +80,11 @@ class LoginForm extends Component {
           <Link to="/signup">
             <Message>New to us? Sign Up</Message>
           </Link>
+          {this.props.error && (
+            <Message negative>
+              <Message.Header>{this.props.error}</Message.Header>
+            </Message>
+          )}
         </Grid.Column>
       </Grid>
     );
@@ -100,7 +92,6 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.auth.currentUser,
   error: state.auth.error
 });
 

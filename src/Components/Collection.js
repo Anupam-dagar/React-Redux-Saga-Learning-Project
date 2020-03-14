@@ -7,9 +7,6 @@ import {
   Icon,
   Label,
   Header,
-  Card,
-  List,
-  Button,
   Grid
 } from "semantic-ui-react";
 import Spinner from "./Spinner";

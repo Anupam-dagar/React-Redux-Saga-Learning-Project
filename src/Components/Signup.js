@@ -98,10 +98,19 @@ class SignupForm extends Component {
           <Link to="/login">
             <Message>Already have an account? Login</Message>
           </Link>
+          {this.props.error && (
+            <Message negative>
+              <Message.Header>{this.props.error}</Message.Header>
+            </Message>
+          )}
         </Grid.Column>
       </Grid>
     );
   }
 }
 
-export default connect(null, { signupUser })(SignupForm);
+const mapStateToProps = state => ({
+  error: state.auth.error
+});
+
+export default connect(mapStateToProps, { signupUser })(SignupForm);

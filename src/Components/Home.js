@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import Navigation from "./Navigation";
 import { Switch, Route } from "react-router-dom";
 import Collection from "./Collection";
-import { Container, Divider } from "semantic-ui-react";
+import {
+  Container,
+  Divider,
+} from "semantic-ui-react";
 import SearchBar from "./Searchbar";
 import RestaurantGrid from "./RestaurantGrid";
 import PaginationBar from "./Paginationbar";
+import Footer from "./Footer";
 
 class Home extends Component {
   render() {
@@ -30,6 +34,7 @@ class Home extends Component {
             </Container>
           </Route>
         </Switch>
+        <Footer />
       </>
     );
   }
