@@ -3,11 +3,9 @@ import { Button, Modal, Icon, Grid, Menu } from "semantic-ui-react";
 import { connect } from "react-redux";
 import PaginationBar from "./Paginationbar";
 import { getAllRestaurants } from "../actions/restaurantactions";
-import {
-  addRestaurantCollection,
-  getCollections
-} from "../actions/collectionsactions";
 import Searchinput from "./Searchinput";
+import { websocketAddMessage } from "../actions/websocketactions";
+import { bindActionCreators } from "redux";
 
 class RestaurantModal extends Component {
   constructor(props) {
@@ -27,6 +25,16 @@ class RestaurantModal extends Component {
   handleClose = () => {
     this.setState({ isOpen: false });
   };
+
+  addRestaurantToCollection(id) {
+    const { dispatch } = this.props;
+    dispatch(
+      websocketAddMessage({
+        collectionId: this.state.collectionId,
+        restaurantId: id
+      })
+    );
+  }
 
   render() {
     return (
@@ -59,12 +67,7 @@ class RestaurantModal extends Component {
                       icon
                       labelPosition="right"
                       circular
-                      onClick={e =>
-                        this.props.addRestaurantCollection(
-                          this.state.collectionId,
-                          value.id
-                        )
-                      }
+                      onClick={() => this.addRestaurantToCollection(value.id)}
                     >
                       {value.restaurant.name}
                     </Button>
@@ -90,8 +93,11 @@ const mapStateToProps = state => ({
   error: state.restaurant.error
 });
 
-export default connect(mapStateToProps, {
-  getAllRestaurants,
-  addRestaurantCollection,
-  getCollections
-})(RestaurantModal);
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    ...bindActionCreators({ getAllRestaurants }, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantModal);

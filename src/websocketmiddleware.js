@@ -5,7 +5,8 @@ import {
   WEBSOCKET_REMOVE_MESSAGE,
   WS_CONNECT,
   WS_DISCONNECT,
-  SUCCESS_UPDATE_COLLECTION
+  SUCCESS_UPDATE_COLLECTION,
+  SUCCESS_ADD_RESTAURANT_TO_COLLECTION
 } from "./actions/types";
 const socketMiddleware = () => {
   let socket = null;
@@ -26,6 +27,12 @@ const socketMiddleware = () => {
       case SUCCESS_UPDATE_COLLECTION:
         store.dispatch({
           type: SUCCESS_UPDATE_COLLECTION,
+          payload: payload.message
+        });
+        break;
+      case SUCCESS_ADD_RESTAURANT_TO_COLLECTION:
+        store.dispatch({
+          type: SUCCESS_ADD_RESTAURANT_TO_COLLECTION,
           payload: payload.message
         });
         break;
