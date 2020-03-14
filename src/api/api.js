@@ -1,5 +1,6 @@
 export const loginUserApi = user => {
-  return fetch("http://localhost:8000/api/auth/login", {
+  console.log(process.env.REACT_APP_BACKEND_ENDPOINT,'hola')
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,7 +19,7 @@ export const loginUserApi = user => {
 };
 
 export const signupUserApi = user => {
-  return fetch("http://localhost:8000/api/auth/register", {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,7 +38,7 @@ export const signupUserApi = user => {
 };
 
 export const getUserProfileApi = token => {
-  return fetch("http://localhost:8000/api/auth/user", {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/auth/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -56,7 +57,7 @@ export const getUserProfileApi = token => {
 };
 
 export const getAllRestaurants = (page, token) => {
-  return fetch(`http://localhost:8000/api/v1/restaurants/?page=${page.page}`, {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/restaurants/?page=${page.page}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +85,7 @@ export const getAllRestaurants = (page, token) => {
 
 export const filterRestaurants = (page, day, time, token) => {
   return fetch(
-    `http://localhost:8000/api/v1/restaurants/${day}/${time}?page=${page.page}`,
+    `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/restaurants/${day}/${time}?page=${page.page}`,
     {
       method: "GET",
       headers: {
@@ -113,7 +114,7 @@ export const filterRestaurants = (page, day, time, token) => {
 };
 
 export const filterNameRestaurants = (page, name, token) => {
-  return fetch(`http://localhost:8000/api/v1/names/${name}?page=${page.page}`, {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/names/${name}?page=${page.page}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -140,7 +141,7 @@ export const filterNameRestaurants = (page, name, token) => {
 };
 
 export const createCollectionApi = (userId, collectionName, token) => {
-  return fetch("http://localhost:8000/api/v1/collections/create", {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/collections/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -164,7 +165,7 @@ export const createCollectionApi = (userId, collectionName, token) => {
 };
 
 export const getCollectionsApi = (userId, token) => {
-  return fetch(`http://localhost:8000/api/v1/collections/${userId}`, {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/collections/${userId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -187,7 +188,7 @@ export const addRestaurantCollectionsApi = (
   restaurantId,
   token
 ) => {
-  return fetch(`http://localhost:8000/api/v1/collections/add`, {
+  return fetch(`${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/collections/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -211,7 +212,7 @@ export const addRestaurantCollectionsApi = (
 
 export const getRestaurantCollectionsApi = (userId, restaurantId, token) => {
   return fetch(
-    `http://localhost:8000/api/v1/collections/${userId}/restaurants/${restaurantId}`,
+    `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/collections/${userId}/restaurants/${restaurantId}`,
     {
       method: "GET",
       headers: {
@@ -237,7 +238,7 @@ export const getRestaurantsInCollectionApi = (
   token
 ) => {
   return fetch(
-    `http://localhost:8000/api/v1/collections/${userId}/${collectionName}`,
+    `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/collections/${userId}/${collectionName}`,
     {
       method: "GET",
       headers: {
@@ -264,7 +265,7 @@ export const deleteRestaurantsInCollectionApi = (
   token
 ) => {
   return fetch(
-    `http://localhost:8000/api/v1/collections/delete/${userId}/${collectionName}/restaurants/${restaurantId}`,
+    `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/collections/delete/${userId}/${collectionName}/restaurants/${restaurantId}`,
     {
       method: "DELETE",
       headers: {
@@ -285,7 +286,7 @@ export const deleteRestaurantsInCollectionApi = (
 
 export const updateRestaurantCollectionApi = (data, collectionId, token) => {
   return fetch(
-    `http://localhost:8000/api/v1/collections/update/${collectionId}`,
+    `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/collections/update/${collectionId}`,
     {
       method: "PATCH",
       headers: {
