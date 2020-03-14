@@ -6,7 +6,9 @@ import {
   WS_CONNECT,
   WS_DISCONNECT,
   SUCCESS_UPDATE_COLLECTION,
-  SUCCESS_ADD_RESTAURANT_TO_COLLECTION
+  SUCCESS_ADD_RESTAURANT_TO_COLLECTION,
+  FAILURE_UPDATE_COLLECTION,
+  FAILURE_ADD_RESTAURANT_TO_COLLECTION
 } from "./actions/types";
 const socketMiddleware = () => {
   let socket = null;
@@ -30,14 +32,26 @@ const socketMiddleware = () => {
           payload: payload.message
         });
         break;
+      case FAILURE_UPDATE_COLLECTION:
+        store.dispatch({
+          type: FAILURE_UPDATE_COLLECTION,
+          payload: payload.message
+        });
+        break;
       case SUCCESS_ADD_RESTAURANT_TO_COLLECTION:
         store.dispatch({
           type: SUCCESS_ADD_RESTAURANT_TO_COLLECTION,
           payload: payload.message
         });
         break;
+      case FAILURE_ADD_RESTAURANT_TO_COLLECTION:
+        store.dispatch({
+          type: FAILURE_ADD_RESTAURANT_TO_COLLECTION,
+          payload: payload.message
+        });
+        break;
       default:
-        console.log("defalt");
+        console.log("default");
         break;
     }
   };
