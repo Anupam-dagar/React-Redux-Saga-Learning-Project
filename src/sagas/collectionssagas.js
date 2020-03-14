@@ -29,7 +29,6 @@ export function* createCollection(data) {
   const token = localStorage.getItem("token");
 
   try {
-    console.log(data);
     const response = yield call(
       createCollectionApi,
       data.userId,
@@ -144,7 +143,6 @@ export function* getRestaurantsInCollection(data) {
 export function* deleteRestaurantsInCollection(data) {
   const token = localStorage.getItem("token");
   try {
-    console.log(data,'saga')
     const response = yield call(
       deleteRestaurantsInCollectionApi,
       data.userId,
@@ -176,7 +174,6 @@ export function* deleteRestaurantsInCollection(data) {
 export function* updateRestaurantCollection(data) {
   const token = localStorage.getItem("token");
   try {
-    console.log(data,'saga')
     const response = yield call(
       updateRestaurantCollectionApi,
       data.data,
