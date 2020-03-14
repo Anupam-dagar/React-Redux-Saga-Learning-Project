@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Popup, Icon, Input, Label, Message, Header } from "semantic-ui-react";
-import { updateUserCollection } from "../actions/collectionsactions";
+import { websocketEditMessage } from "../actions/websocketactions";
 
 class CollectionEditModal extends Component {
   constructor(props) {
@@ -34,9 +34,12 @@ class CollectionEditModal extends Component {
   };
 
   handleClick() {
-    this.props.updateUserCollection(
-      { name: this.state.value },
-      this.state.collectionId
+    const { dispatch } = this.props;
+    dispatch(
+      websocketEditMessage({
+        name: this.state.value,
+        id: this.state.collectionId
+      })
     );
     this.setState({ value: "" });
   }
@@ -100,6 +103,6 @@ const mapStateToProps = state => ({
   currentUser: state.auth.currentUser
 });
 
-export default connect(mapStateToProps, { updateUserCollection })(
+export default connect(mapStateToProps, null)(
   CollectionEditModal
 );
