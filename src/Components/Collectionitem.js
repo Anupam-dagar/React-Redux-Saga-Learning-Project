@@ -36,7 +36,7 @@ class CollectionItem extends Component {
 
   connectAndJoin = collectionId => {
     const { dispatch } = this.props;
-    const host = `ws://localhost:8000/ws/collections/${collectionId}/`;
+    const host = `ws://${process.env.REACT_APP_BACKEND_ENDPOINT}/ws/collections/${collectionId}/`;
     dispatch(wsConnect(host));
   };
 
