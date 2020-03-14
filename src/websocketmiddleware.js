@@ -8,7 +8,9 @@ import {
   SUCCESS_UPDATE_COLLECTION,
   SUCCESS_ADD_RESTAURANT_TO_COLLECTION,
   FAILURE_UPDATE_COLLECTION,
-  FAILURE_ADD_RESTAURANT_TO_COLLECTION
+  FAILURE_ADD_RESTAURANT_TO_COLLECTION,
+  SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION,
+  FAILURE_DELETE_RESTAURANTS_IN_COLLECTION
 } from "./actions/types";
 const socketMiddleware = () => {
   let socket = null;
@@ -47,6 +49,20 @@ const socketMiddleware = () => {
       case FAILURE_ADD_RESTAURANT_TO_COLLECTION:
         store.dispatch({
           type: FAILURE_ADD_RESTAURANT_TO_COLLECTION,
+          payload: payload.message
+        });
+        break;
+      case SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION:
+        console.log(payload,'inhere')
+        store.dispatch({
+          type: SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION,
+          payload: payload.message.success,
+          restaurantData: {results: payload.message.restaurants}
+        });
+        break;
+      case FAILURE_DELETE_RESTAURANTS_IN_COLLECTION:
+        store.dispatch({
+          type: FAILURE_DELETE_RESTAURANTS_IN_COLLECTION,
           payload: payload.message
         });
         break;

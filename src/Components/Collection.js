@@ -21,7 +21,9 @@ import {
   getRestaurantInCollection,
   deleteRestaurantInCollection
 } from "../actions/collectionsactions";
-import CollectionItem from './Collectionitem';
+import CollectionItem from "./Collectionitem";
+import { websocketRemoveMessage } from "../actions/websocketactions";
+import { bindActionCreators } from "redux";
 
 class Collection extends Component {
   state = { activeIndex: -1, collections: [], restaurants: [] };
@@ -37,13 +39,16 @@ class Collection extends Component {
     this.setState({ activeIndex: newIndex });
   };
 
-  handleDeleteRestaurantInCollection = (userId, collectionName, restaurantId) => {
-    this.props.deleteRestaurantInCollection(
-      userId,
-      collectionName,
-      restaurantId
+  handleDeleteRestaurantInCollection = (
+    userId,
+    collectionName,
+    restaurantId
+  ) => {
+    const { dispatch } = this.props;
+    dispatch(
+      websocketRemoveMessage({ user: userId, collectionName, restaurantId })
     );
-  }
+  };
 
   componentDidMount() {
     this.props.getCollections(this.props.currentUser.id);
@@ -95,7 +100,15 @@ class Collection extends Component {
         <CreateCollectionModal collections={this.props.collections} />
         <Accordion fluid styled>
           {this.state.collections.map((value, index) => (
-            <CollectionItem key={index} deleteHandler={this.handleDeleteRestaurantInCollection} handler={this.handleClick} collection={value} restaurants={this.state.restaurants} activeIndex={activeIndex} itemIndex={index} />
+            <CollectionItem
+              key={index}
+              deleteHandler={this.handleDeleteRestaurantInCollection}
+              handler={this.handleClick}
+              collection={value}
+              restaurants={this.state.restaurants}
+              activeIndex={activeIndex}
+              itemIndex={index}
+            />
           ))}
         </Accordion>
         <Divider hidden />
@@ -124,9 +137,19 @@ const mapStateToProps = state => ({
   newCollection: state.collections.newCollection
 });
 
-export default connect(mapStateToProps, {
-  getCollections,
-  getRestaurantCollection,
-  getRestaurantInCollection,
-  deleteRestaurantInCollection
-})(Collection);
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+    ...bindActionCreators(
+      {
+        getCollections,
+        getRestaurantCollection,
+        getRestaurantInCollection,
+        deleteRestaurantInCollection
+      },
+      dispatch
+    )
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Collection);

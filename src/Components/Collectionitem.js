@@ -1,18 +1,12 @@
 import React, { Component } from "react";
-import {
-  Divider,
-  Accordion,
-  Icon,
-  Label,
-  Card,
-  List
-} from "semantic-ui-react";
+import { Divider, Accordion, Icon, Label, Card, List } from "semantic-ui-react";
 import { connect } from "react-redux";
 import moment from "moment";
 import RestaurantModal from "./Addrestaurantmodal";
 import CollaboratorPopup from "./Collaboratorpopup";
 import Collectioneditmodal from "./Collectioneditmodal";
 import { wsConnect, wsDisconnect } from "../actions/websocketactions";
+import Spinner from "./Spinner";
 
 class CollectionItem extends Component {
   constructor(props) {
@@ -101,163 +95,167 @@ class CollectionItem extends Component {
           />
           <Divider hidden />
           <Card.Group itemsPerRow={5}>
-            {this.state.restaurants.map((restaurantData, index) => (
-              <Card key={index} raised>
-                <Card.Content>
-                  <Label
-                    as="a"
-                    ribbon="right"
-                    onClick={() =>
-                      this.props.deleteHandler(
-                        this.props.currentUser.id,
-                        collection.name,
-                        restaurantData.restaurant.id
-                      )
-                    }
-                  >
-                    <Icon name="close" style={{ opacity: 1 }} color="red" />
-                  </Label>
-                  <Card.Header
-                    style={{
-                      marginBottom: "-0.5em",
-                      marginTop: "0.3em"
-                    }}
-                  >
-                    {restaurantData.restaurant.restaurant.name}
-                  </Card.Header>
-                </Card.Content>
-                <Card.Content>
-                  <List verticalAlign="middle">
-                    <List.Item>
-                      <List.Header>Monday</List.Header>
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}{" "}
-                      to{" "}
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}
-                    </List.Item>
-                    <List.Item>
-                      <List.Header>Tuesday</List.Header>
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}{" "}
-                      to{" "}
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}
-                    </List.Item>
-                    <List.Item>
-                      <List.Header>Wednesday</List.Header>
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}{" "}
-                      to{" "}
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}
-                    </List.Item>
-                    <List.Item>
-                      <List.Header>Thursday</List.Header>
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}{" "}
-                      to{" "}
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}
-                    </List.Item>
-                    <List.Item>
-                      <List.Header>Friday</List.Header>
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}{" "}
-                      to{" "}
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}
-                    </List.Item>
-                    <List.Item>
-                      <List.Header>Saturday</List.Header>
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}{" "}
-                      to{" "}
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}
-                    </List.Item>
-                    <List.Item>
-                      <List.Header>Sunday</List.Header>
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}{" "}
-                      to{" "}
-                      {restaurantData.restaurant.closing_time.sunday ===
-                      undefined
-                        ? "Closed"
-                        : moment(
-                            restaurantData.restaurant.closing_time.sunday,
-                            "hh:mm A"
-                          ).format("hh:mm A")}
-                    </List.Item>
-                  </List>
-                </Card.Content>
-              </Card>
-            ))}
+            {this.props.resturantIsLoading ? (
+              <Spinner />
+            ) : (
+              this.state.restaurants.map((restaurantData, index) => (
+                <Card key={index} raised>
+                  <Card.Content>
+                    <Label
+                      as="a"
+                      ribbon="right"
+                      onClick={() =>
+                        this.props.deleteHandler(
+                          this.props.currentUser.id,
+                          collection.name,
+                          restaurantData.restaurant.id
+                        )
+                      }
+                    >
+                      <Icon name="close" style={{ opacity: 1 }} color="red" />
+                    </Label>
+                    <Card.Header
+                      style={{
+                        marginBottom: "-0.5em",
+                        marginTop: "0.3em"
+                      }}
+                    >
+                      {restaurantData.restaurant.restaurant.name}
+                    </Card.Header>
+                  </Card.Content>
+                  <Card.Content>
+                    <List verticalAlign="middle">
+                      <List.Item>
+                        <List.Header>Monday</List.Header>
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}{" "}
+                        to{" "}
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}
+                      </List.Item>
+                      <List.Item>
+                        <List.Header>Tuesday</List.Header>
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}{" "}
+                        to{" "}
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}
+                      </List.Item>
+                      <List.Item>
+                        <List.Header>Wednesday</List.Header>
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}{" "}
+                        to{" "}
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}
+                      </List.Item>
+                      <List.Item>
+                        <List.Header>Thursday</List.Header>
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}{" "}
+                        to{" "}
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}
+                      </List.Item>
+                      <List.Item>
+                        <List.Header>Friday</List.Header>
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}{" "}
+                        to{" "}
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}
+                      </List.Item>
+                      <List.Item>
+                        <List.Header>Saturday</List.Header>
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}{" "}
+                        to{" "}
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}
+                      </List.Item>
+                      <List.Item>
+                        <List.Header>Sunday</List.Header>
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}{" "}
+                        to{" "}
+                        {restaurantData.restaurant.closing_time.sunday ===
+                        undefined
+                          ? "Closed"
+                          : moment(
+                              restaurantData.restaurant.closing_time.sunday,
+                              "hh:mm A"
+                            ).format("hh:mm A")}
+                      </List.Item>
+                    </List>
+                  </Card.Content>
+                </Card>
+              ))
+            )}
           </Card.Group>
         </Accordion.Content>
       </>
@@ -267,7 +265,8 @@ class CollectionItem extends Component {
 
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
-  collections: state.collections.collections.results
+  collections: state.collections.collections.results,
+  resturantIsLoading: state.collections.resturantIsLoading
 });
 
 export default connect(mapStateToProps, null)(CollectionItem);
