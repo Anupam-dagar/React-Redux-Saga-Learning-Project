@@ -17,3 +17,13 @@ REACT_APP_WS_PROTOCOL=ws://
 ```
 5. Run the server using `yarn start`.
 6. The frontend should now be accessible at `http://localhost:3000`
+
+## Technologies Used
+1. React
+2. Redux
+3. Redux Saga
+4. Websockets
+5. Semantic UI React
+
+## License
+MIT
