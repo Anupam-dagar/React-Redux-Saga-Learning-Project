@@ -10,7 +10,6 @@ import {
 import SearchBar from "./Searchbar";
 import RestaurantGrid from "./RestaurantGrid";
 import PaginationBar from "./Paginationbar";
-import Footer from "./Footer";
 
 class Home extends Component {
   render() {
@@ -34,7 +33,6 @@ class Home extends Component {
             </Container>
           </Route>
         </Switch>
-        <Footer />
       </>
     );
   }

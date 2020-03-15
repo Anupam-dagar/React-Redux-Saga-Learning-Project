@@ -7,6 +7,7 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import "semantic-ui-css/semantic.min.css";
 import Home from "./Components/Home";
+import Spinner from './Components/Spinner';
 
 class App extends Component {
   state = {};
@@ -36,7 +37,7 @@ class App extends Component {
 
   render() {
     if (this.state.isLoading || this.state.isLoading === undefined) {
-      return <div>Loading your page!</div>;
+      return <Spinner />;
     }
     if (this.state.isAuthenticated) {
       return (
