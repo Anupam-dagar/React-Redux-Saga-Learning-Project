@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Popup, Icon, Input, Button, List } from "semantic-ui-react";
+import { Popup, Icon, Input, Button, List, Message } from "semantic-ui-react";
 import { updateUserCollection } from "../actions/collectionsactions";
 
 class CollaboratorPopup extends Component {
@@ -115,6 +115,11 @@ class CollaboratorPopup extends Component {
                   value={this.state.value}
                   onChange={e => this.handleChange(e)}
                 />
+                {this.props.error && 
+                  <Message negative>
+                    <p>{this.props.error}</p>
+                  </Message>
+                }
               </List.Header>
             </List.Content>
           </List.Item>
@@ -126,7 +131,8 @@ class CollaboratorPopup extends Component {
 
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
-  updatedCollaborators: state.collections.collection
+  updatedCollaborators: state.collections.collection,
+  error: state.collections.error
 });
 
 export default connect(mapStateToProps, { updateUserCollection })(

@@ -35,7 +35,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         newCollection: action.payload,
-        isLoading: false
+        isLoading: false,
+        error: ""
       };
     case FAILURE_CREATE_COLLECTION:
       return {
@@ -49,7 +50,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         collections: action.payload,
-        isLoading: false
+        isLoading: false,
+        error: ""
       };
     case FAILURE_ALL_COLLECTION:
       return {
@@ -63,7 +65,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         addedCollection: action.payload,
-        isLoading: false
+        isLoading: false,
+        error: ""
       };
     case FAILURE_ADD_RESTAURANT_TO_COLLECTION:
       return {
@@ -80,7 +83,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         partOfCollections: action.payload,
-        isLoading: false
+        isLoading: false,
+        error: ""
       };
     case FAILURE_GET_RESTAURANT_PARTOF_COLLECTION:
       return {
@@ -94,7 +98,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         restaurants: action.payload,
-        resturantIsLoading: false
+        resturantIsLoading: false,
+        error: ""
       };
     case FAILURE_GET_RESTAURANTS_IN_COLLECTION:
       return { ...state, error: action.payload, resturantIsLoading: false };
@@ -105,7 +110,8 @@ export default function(state = initialState, action) {
         ...state,
         success: action.payload,
         restaurantData: action.restaurantData,
-        isLoading: false
+        isLoading: false,
+        error: ""
       };
     case FAILURE_DELETE_RESTAURANTS_IN_COLLECTION:
       return {
@@ -117,7 +123,12 @@ export default function(state = initialState, action) {
     case REQUEST_UPDATE_COLLECTION:
       return { ...state, isLoading: true };
     case SUCCESS_UPDATE_COLLECTION:
-      return { ...state, collection: action.payload, isLoading: false };
+      return {
+        ...state,
+        collection: action.payload,
+        isLoading: false,
+        error: ""
+      };
     case FAILURE_UPDATE_COLLECTION:
       return { ...state, isLoading: false, error: action.payload };
     default:

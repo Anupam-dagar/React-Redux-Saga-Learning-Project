@@ -37,7 +37,7 @@ const socketMiddleware = () => {
       case FAILURE_UPDATE_COLLECTION:
         store.dispatch({
           type: FAILURE_UPDATE_COLLECTION,
-          payload: payload.message
+          payload: payload.message.error
         });
         break;
       case SUCCESS_ADD_RESTAURANT_TO_COLLECTION:
@@ -49,7 +49,7 @@ const socketMiddleware = () => {
       case FAILURE_ADD_RESTAURANT_TO_COLLECTION:
         store.dispatch({
           type: FAILURE_ADD_RESTAURANT_TO_COLLECTION,
-          payload: payload.message
+          payload: payload.message.error
         });
         break;
       case SUCCESS_DELETE_RESTAURANTS_IN_COLLECTION:
@@ -63,7 +63,7 @@ const socketMiddleware = () => {
       case FAILURE_DELETE_RESTAURANTS_IN_COLLECTION:
         store.dispatch({
           type: FAILURE_DELETE_RESTAURANTS_IN_COLLECTION,
-          payload: payload.message
+          payload: payload.message.error
         });
         break;
       default:

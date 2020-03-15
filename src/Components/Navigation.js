@@ -22,7 +22,7 @@ class Navigation extends Component {
       <Segment raised size="mini">
         <Menu secondary>
           <Menu.Item header>
-            Welcome {this.props.currentUser.username}
+            Welcome {this.props.currentUser.username} ({this.props.currentUser.email})
             </Menu.Item>
           <Menu.Menu position="right">
             <Menu.Item

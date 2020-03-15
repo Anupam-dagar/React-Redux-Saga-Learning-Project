@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Modal, Icon, Grid, Menu } from "semantic-ui-react";
+import { Button, Modal, Icon, Grid, Menu, Message } from "semantic-ui-react";
 import { connect } from "react-redux";
 import PaginationBar from "./Paginationbar";
 import { getAllRestaurants } from "../actions/restaurantactions";
@@ -58,6 +58,12 @@ class RestaurantModal extends Component {
         </Modal.Header>
         <Modal.Content>
           <Modal.Description>
+            {this.props.addError && (
+              <Message negative>
+                <Message.Header>{this.props.addError}</Message.Header>
+                <p>Please check if the restaurant is already present in collection.</p>
+              </Message>
+            )}
             <Grid columns={3} padded="vertically">
               {this.props.data &&
                 this.props.data.map((value, index) => (
@@ -90,7 +96,8 @@ const mapStateToProps = state => ({
   next: state.restaurant.restaurants.next,
   count: state.restaurant.restaurants.count,
   data: state.restaurant.restaurants.results,
-  error: state.restaurant.error
+  error: state.restaurant.error,
+  addError: state.collections.error
 });
 
 function mapDispatchToProps(dispatch) {

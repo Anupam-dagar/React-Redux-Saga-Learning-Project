@@ -17,56 +17,59 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case REQUEST_ALL_RESTAURANTS:
-      return { ...state, isLoading: true, currentAction: 'all' };
+      return { ...state, isLoading: true, currentAction: "all" };
     case SUCCESS_ALL_RESTAURANTS:
       return {
         ...state,
         restaurants: action.payload,
         isLoading: false,
-        currentAction: 'all'
+        currentAction: "all",
+        error: ""
       };
     case FAILURE_ALL_RESTAURANTS:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-        currentAction: 'all'
+        currentAction: "all"
       };
     case REQUEST_FILTER_RESTAURANTS:
-      return {...state, isLoading: true, currentAction: 'filter'}
+      return { ...state, isLoading: true, currentAction: "filter" };
     case SUCCESS_FILTER_RESTAURANTS:
       return {
         ...state,
         restaurants: action.payload,
         isLoading: false,
-        currentAction: 'filter',
+        currentAction: "filter",
         day: action.day,
-        time: action.time
-      }
+        time: action.time,
+        error: ""
+      };
     case FAILURE_FILTER_RESTAURANTS:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-        currentAction: 'filter'
-      }
+        currentAction: "filter"
+      };
     case REQUEST_NAME_RESTAURANTS:
-      return {...state, isLoading: true, currentAction: 'named'}
+      return { ...state, isLoading: true, currentAction: "named" };
     case SUCCESS_NAME_RESTAURANTS:
       return {
         ...state,
         restaurants: action.payload,
         isLoading: false,
-        currentAction: 'named',
-        name: action.name
-      }
+        currentAction: "named",
+        name: action.name,
+        error: ""
+      };
     case FAILURE_NAME_RESTAURANTS:
       return {
         ...state,
         error: action.payload,
         isLoading: false,
-        currentAction: 'named'
-      }
+        currentAction: "named"
+      };
     default:
       return state;
   }
