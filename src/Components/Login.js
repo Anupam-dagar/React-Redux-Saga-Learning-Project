@@ -54,6 +54,7 @@ class LoginForm extends Component {
                 iconPosition="left"
                 placeholder="Username"
                 name="username"
+                required={true}
                 value={this.state.username}
                 onChange={this.handleChange}
               />
@@ -64,6 +65,7 @@ class LoginForm extends Component {
                 placeholder="Password"
                 type="password"
                 name="password"
+                required={true}
                 value={this.state.password}
                 onChange={this.handleChange}
               />

@@ -33,6 +33,10 @@ class SignupForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    if(this.state.password !== this.state.confirm_password) {
+      this.setState({error:"Password and Confirm Password must be same"})
+      return;
+    }
     this.props.signupUser(this.state);
   };
 
@@ -56,6 +60,7 @@ class SignupForm extends Component {
                 iconPosition="left"
                 placeholder="Username"
                 name="username"
+                required={true}
                 value={this.state.username}
                 onChange={this.handleChange}
               />
@@ -66,6 +71,7 @@ class SignupForm extends Component {
                 placeholder="youremail@domain.com"
                 type="email"
                 name="email"
+                required={true}
                 value={this.state.email}
                 onChange={this.handleChange}
               />
@@ -76,6 +82,7 @@ class SignupForm extends Component {
                 placeholder="Password"
                 type="password"
                 name="password"
+                required={true}
                 value={this.state.password}
                 onChange={this.handleChange}
               />
@@ -86,6 +93,7 @@ class SignupForm extends Component {
                 placeholder="Confirm Password"
                 type="password"
                 name="confirm_password"
+                required={true}
                 value={this.state.confirm_password}
                 onChange={this.handleChange}
               />
@@ -101,6 +109,11 @@ class SignupForm extends Component {
           {this.props.error && (
             <Message negative>
               <Message.Header>{this.props.error}</Message.Header>
+            </Message>
+          )}
+          {this.state.error && (
+            <Message negative>
+              <Message.Header>{this.state.error}</Message.Header>
             </Message>
           )}
         </Grid.Column>
