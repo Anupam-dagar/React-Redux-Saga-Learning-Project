@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Message, Divider, Container } from "semantic-ui-react";
 import { connect } from "react-redux";
 import Filterinput from "./Filterinput";
 import Searchinput from "./Searchinput";
@@ -8,6 +8,7 @@ import {
   getAllRestaurants,
   getFilterRestaurants
 } from "../actions/restaurantactions";
+import moment from "moment";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -16,7 +17,10 @@ class SearchBar extends Component {
     this.state = {
       value: "",
       queryDay: "",
-      queryTime: ""
+      queryTime: "",
+      date: "",
+      month: "",
+      year: ""
     };
 
     this.updateState = this.updateState.bind(this);
@@ -57,26 +61,47 @@ class SearchBar extends Component {
   }
 
   render() {
+    let message = "Showing results for restaurants ";
+    let showMessage = false;
+    if (this.state.value !== "") {
+      message = message + `with name ${this.state.value} `;
+      showMessage = true;
+    }
+    if (this.state.queryDay !== "") {
+      message =
+        message +
+        `which are open on ${this.state.queryDay}, ${this.state.date} ${
+          this.state.month
+        } ${this.state.year} at ${moment(
+          this.state.queryTime,
+          "HH:mm:ss"
+        ).format("hh:mm A")}`;
+      showMessage = true;
+    }
     return (
-      <Menu secondary>
-        <Menu.Item>
-          <Searchinput
-            stateHandler={this.updateState}
-            searchValue={this.state.value}
-            queryDay={this.state.queryDay}
-            queryTime={this.state.queryTime}
-          />
-        </Menu.Item>
-        <Menu.Menu position="right">
-          <Menu.Item name="Filter By" header />
-          <Filterinput
-            stateHandler={this.updateState}
-            searchValue={this.state.value}
-            queryDay={this.state.queryDay}
-            queryTime={this.state.queryTime}
-          />
-        </Menu.Menu>
-      </Menu>
+      <>
+        <Menu secondary>
+          <Menu.Item>
+            <Searchinput
+              stateHandler={this.updateState}
+              searchValue={this.state.value}
+              queryDay={this.state.queryDay}
+              queryTime={this.state.queryTime}
+            />
+          </Menu.Item>
+          <Menu.Menu position="right">
+            <Menu.Item name="Filter By" header />
+            <Filterinput
+              stateHandler={this.updateState}
+              searchValue={this.state.value}
+              queryDay={this.state.queryDay}
+              queryTime={this.state.queryTime}
+            />
+          </Menu.Menu>
+        </Menu>
+        {showMessage && <Container textAlign="center"> <Message style={{textAlign: "center"}} compact size="small" info header={message} /></Container>}
+        <Divider hidden />
+      </>
     );
   }
 }

@@ -20,12 +20,18 @@ class Filterinput extends Component {
 
   handleChange = (event, { name, value }) => {
     if (this.state.hasOwnProperty(name)) {
+      const date = moment(value.split(" ")[0], "DD-MM-YYYY").format("DD");
+      const month = moment(value.split(" ")[0], "DD-MM-YYYY").format("MMMM");
+      const year = moment(value.split(" ")[0], "DD-MM-YYYY").format("YYYY");
       const day = moment(value.split(" ")[0], "DD-MM-YYYY").format("dddd");
       const time = moment(value.split(" ")[1], "HH:mm").format("HH:mm:ss");
       this.props.stateHandler({
         [name]: value,
         queryDay: day,
-        queryTime: time
+        queryTime: time,
+        date: date,
+        month: month,
+        year: year
       });
       this.setState({ [name]: value });
     }
@@ -35,7 +41,10 @@ class Filterinput extends Component {
     this.setState({ dateTime: "" });
     this.props.stateHandler({
       queryDay: "",
-      queryTime: ""
+      queryTime: "",
+      date: "",
+      month: "",
+      year: ""
     });
   }
 
