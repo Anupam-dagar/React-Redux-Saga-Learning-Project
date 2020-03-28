@@ -18,16 +18,36 @@ class PaginationBar extends Component {
   };
 
   handlePaginationChange = (e, { activePage }) => {
-    if (this.props.currentAction === "filter") {
+    if (
+      (this.props.searchValue === "" || this.props.searchValue === undefined) &&
+      (this.props.day === "" || this.props.day === undefined) &&
+      (this.props.time === "" || this.props.time === undefined)
+    ) {
+      this.props.getAllRestaurants(activePage);
+    }
+    if (this.props.searchValue !== "" && this.props.searchValue !== undefined) {
+      if (this.props.day !== "" && this.props.day !== undefined) {
+        this.props.getFilterRestaurants(
+          activePage,
+          this.props.day,
+          this.props.time,
+          this.props.searchValue
+        );
+      } else {
+        this.props.getNamedRestaurants(activePage, this.props.searchValue);
+      }
+    }
+    if (
+      this.props.day !== "" &&
+      this.props.day !== undefined &&
+      (this.props.searchValue === "" || this.props.searchValue === undefined)
+    ) {
       this.props.getFilterRestaurants(
         activePage,
         this.props.day,
-        this.props.time
+        this.props.time,
+        this.props.searchValue
       );
-    } else if (this.props.currentAction === "named") {
-      this.props.getNamedRestaurants(activePage, this.props.name);
-    } else {
-      this.props.getAllRestaurants(activePage);
     }
   };
   render() {
@@ -70,7 +90,8 @@ const mapStateToProps = state => ({
   currentAction: state.restaurant.currentAction,
   day: state.restaurant.day,
   time: state.restaurant.time,
-  name: state.restaurant.name
+  name: state.restaurant.name,
+  searchValue: state.restaurant.searchValue
 });
 
 export default connect(mapStateToProps, {

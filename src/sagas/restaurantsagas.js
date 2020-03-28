@@ -45,7 +45,8 @@ export function* getFilteredRestaurants(page) {
       type: SUCCESS_FILTER_RESTAURANTS,
       payload: response,
       day: page.day,
-      time: page.time
+      time: page.time,
+      value:page.value
     });
   } catch (error) {
     localStorage.removeItem("token");

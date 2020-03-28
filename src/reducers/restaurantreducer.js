@@ -24,6 +24,9 @@ export default function(state = initialState, action) {
         restaurants: action.payload,
         isLoading: false,
         currentAction: "all",
+        day: "",
+        time: "",
+        searchValue: "",
         error: ""
       };
     case FAILURE_ALL_RESTAURANTS:
@@ -43,6 +46,7 @@ export default function(state = initialState, action) {
         currentAction: "filter",
         day: action.day,
         time: action.time,
+        searchValue: action.value,
         error: ""
       };
     case FAILURE_FILTER_RESTAURANTS:
@@ -61,6 +65,7 @@ export default function(state = initialState, action) {
         isLoading: false,
         currentAction: "named",
         name: action.name,
+        searchValue: action.name,
         error: ""
       };
     case FAILURE_NAME_RESTAURANTS:
