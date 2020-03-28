@@ -3,16 +3,16 @@ import { Icon } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { DateTimeInput } from "semantic-ui-calendar-react";
 import moment from "moment";
-import { getFilterRestaurants, getAllRestaurants } from "../actions/restaurantactions";
 
 class Filterinput extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      value: "",
       dateTime: "",
-      queryDay: "",
-      queryTime: ""
+      queryDay: this.props.queryDay,
+      queryTime: this.props.queryTime
     };
     this.handleChange = this.handleChange.bind(this);
     this.clearChange = this.clearChange.bind(this);
@@ -22,19 +22,33 @@ class Filterinput extends Component {
     if (this.state.hasOwnProperty(name)) {
       const day = moment(value.split(" ")[0], "DD-MM-YYYY").format("dddd");
       const time = moment(value.split(" ")[1], "HH:mm").format("HH:mm:ss");
-      this.setState({ [name]: value, queryDay: day, queryTime: time });
-      this.props.getFilterRestaurants(1, day, time);
+      this.props.stateHandler({
+        [name]: value,
+        queryDay: day,
+        queryTime: time
+      });
+      this.setState({ [name]: value });
     }
   };
 
   clearChange() {
-      console.log(this.props);
-      this.setState({dateTime:''});
-      this.props.getAllRestaurants(1);
+    this.setState({ dateTime: "" });
+    this.props.stateHandler({
+      queryDay: "",
+      queryTime: ""
+    });
   }
 
-  componentDidUpdate() {
-    console.log(this.state,'filterinput');
+  componentDidUpdate(newprops) {
+    if (newprops.searchValue !== this.props.searchValue) {
+      this.setState({ value: this.props.searchValue });
+    }
+    if (newprops.queryDay !== this.props.queryDay) {
+      this.setState({ queryDay: this.props.queryDay });
+    }
+    if (newprops.queryTime !== this.props.queryTime) {
+      this.setState({ queryTime: this.props.queryTime });
+    }
   }
 
   render() {
@@ -55,4 +69,6 @@ class Filterinput extends Component {
   }
 }
 
-export default connect(null, { getAllRestaurants, getFilterRestaurants })(Filterinput);
+export default connect(null, null)(
+  Filterinput
+);

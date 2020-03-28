@@ -38,6 +38,7 @@ export function* getFilteredRestaurants(page) {
       page,
       page.day,
       page.time,
+      page.value,
       token
     );
     yield put({

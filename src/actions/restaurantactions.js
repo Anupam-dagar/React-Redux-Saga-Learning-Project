@@ -8,13 +8,14 @@ export const getAllRestaurants = (page) => {
   };
 };
 
-export const getFilterRestaurants = (page, day, time) => {
+export const getFilterRestaurants = (page, day, time, value) => {
   console.log("REQUEST_FILTER_RESTAURANTS action received");
   return {
     type: REQUEST_FILTER_RESTAURANTS,
     page,
     day,
-    time
+    time,
+    value
   }
 }
 

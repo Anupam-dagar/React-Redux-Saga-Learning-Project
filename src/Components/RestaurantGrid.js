@@ -57,7 +57,7 @@ class RestaurantGrid extends Component {
       return <Spinner />;
     }
     return (
-      <div style={{ marginLeft: 20, marginRight: 20 }}>
+      <div style={{ marginLeft: 20, marginRight: 20, overflowX:"auto" }}>
         <Table celled singleLine sortable columns={8}>
           <Table.Header>
             <Table.Row>

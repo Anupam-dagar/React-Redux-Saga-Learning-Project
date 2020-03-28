@@ -30,6 +30,7 @@ class Home extends Component {
               </Container>
               <Divider hidden />
               <RestaurantGrid />
+              <Divider hidden />
             </Container>
           </Route>
         </Switch>
