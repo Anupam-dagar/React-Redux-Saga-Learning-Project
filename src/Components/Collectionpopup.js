@@ -109,6 +109,9 @@ class Collectionpopup extends Component {
         position="right center"
       >
         <List selection verticalAlign="middle">
+          <List.Item style={{color:"black"}}>
+            Add restaurant to collection
+          </List.Item>
           {this.props.isLoading ? (
             <Spinner />
           ) : (
@@ -140,7 +143,7 @@ class Collectionpopup extends Component {
 
           <List.Item>
             <List.Content>
-              Create New
+              <span style={{color:"black"}}>Create New Collection</span>
               <List.Header>
                 <Input
                   icon={

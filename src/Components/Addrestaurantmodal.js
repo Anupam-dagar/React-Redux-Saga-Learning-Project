@@ -76,6 +76,7 @@ class RestaurantModal extends Component {
                       onClick={() => this.addRestaurantToCollection(value.id)}
                     >
                       {value.restaurant.name}
+                      {(this.props.addedCollection && this.props.addedCollection.restaurant.restaurant.name === value.restaurant.name && this.props.addedCollection.restaurant_collection.id === this.state.collectionId) && <Icon style={{background:"green"}} name='check' />}
                     </Button>
                   </Grid.Column>
                 ))}
@@ -97,7 +98,8 @@ const mapStateToProps = state => ({
   count: state.restaurant.restaurants.count,
   data: state.restaurant.restaurants.results,
   error: state.restaurant.error,
-  addError: state.collections.error
+  addError: state.collections.error,
+  addedCollection: state.collections.addedCollection
 });
 
 function mapDispatchToProps(dispatch) {
