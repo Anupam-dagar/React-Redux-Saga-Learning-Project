@@ -7,6 +7,8 @@ import _ from "lodash";
 import Spinner from "./Spinner";
 import Collectionpopup from "./Collectionpopup";
 import { getCollections } from "../actions/collectionsactions";
+import '../App.css';
+
 
 class RestaurantGrid extends Component {
   state = {
@@ -119,7 +121,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'monday' ? true : false}
+                  className={(this.state.today === 'monday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'monday' ? 'customfilter' : "")}
                 >
                   {restaurantData.opening_time.monday === undefined
                     ? "Closed"
@@ -130,7 +132,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'monday' ? true : false}
+                  className={(this.state.today === 'monday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'monday' ? 'customfilter' : "")}
                 >
                   {restaurantData.closing_time.monday === undefined
                     ? "Closed"
@@ -141,7 +143,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'tuesday' ? true : false}
+                  className={(this.state.today === 'tuesday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'tuesday' ? 'customfilter' : "")}
                 >
                   {restaurantData.opening_time.tuesday === undefined
                     ? "Closed"
@@ -152,7 +154,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'tuesday' ? true : false}
+                  className={(this.state.today === 'tuesday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'tuesday' ? 'customfilter' : "")}
                 >
                   {restaurantData.closing_time.tuesday === undefined
                     ? "Closed"
@@ -163,7 +165,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'wednesday' ? true : false}
+                  className={(this.state.today === 'wednesday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'wednesday' ? 'customfilter' : "")}
                 >
                   {restaurantData.opening_time.wednesday === undefined
                     ? "Closed"
@@ -174,7 +176,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'wednesday' ? true : false}
+                  className={(this.state.today === 'wednesday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'wednesday' ? 'customfilter' : "")}
                 >
                   {restaurantData.closing_time.wednesday === undefined
                     ? "Closed"
@@ -185,7 +187,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'thursday' ? true : false}
+                  className={(this.state.today === 'thursday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'thursday' ? 'customfilter' : "")}
                 >
                   {restaurantData.opening_time.thursday === undefined
                     ? "Closed"
@@ -196,7 +198,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'thursday' ? true : false}
+                  className={(this.state.today === 'thursday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'thursday' ? 'customfilter' : "")}
                 >
                   {restaurantData.closing_time.thursday === undefined
                     ? "Closed"
@@ -207,7 +209,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'friday' ? true : false}
+                  className={(this.state.today === 'friday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'friday' ? 'customfilter' : "")}
                 >
                   {restaurantData.opening_time.friday === undefined
                     ? "Closed"
@@ -218,7 +220,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'friday' ? true : false}
+                  className={(this.state.today === 'friday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'friday' ? 'customfilter' : "")}
                 >
                   {restaurantData.closing_time.friday === undefined
                     ? "Closed"
@@ -229,7 +231,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'saturday' ? true : false}
+                  className={(this.state.today === 'saturday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'saturday' ? 'customfilter' : "")}
                 >
                   {restaurantData.opening_time.saturday === undefined
                     ? "Closed"
@@ -240,7 +242,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'saturday' ? true : false}
+                  className={(this.state.today === 'saturday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'saturday' ? 'customfilter' : "")}
                 >
                   {restaurantData.closing_time.saturday === undefined
                     ? "Closed"
@@ -251,7 +253,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'sunday' ? true : false}
+                  className={(this.state.today === 'sunday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'sunday' ? 'customfilter' : "")}
                 >
                   {restaurantData.opening_time.sunday === undefined
                     ? "Closed"
@@ -262,7 +264,7 @@ class RestaurantGrid extends Component {
                 </Table.Cell>
                 <Table.Cell
                   textAlign="center"
-                  positive={this.state.today === 'sunday' ? true : false}
+                  className={(this.state.today === 'sunday' ? "customcell" : "") + " " + (this.props.filterDay && this.props.filterDay.toLowerCase() === 'sunday' ? 'customfilter' : "")}
                 >
                   {restaurantData.closing_time.sunday === undefined
                     ? "Closed"
@@ -287,7 +289,8 @@ const mapStateToProps = state => ({
   count: state.restaurant.restaurants.count,
   data: state.restaurant.restaurants.results,
   isLoading: state.restaurant.isLoading,
-  error: state.restaurant.error
+  error: state.restaurant.error,
+  filterDay: state.restaurant.day
 });
 
 export default connect(mapStateToProps, { getAllRestaurants, getCollections })(
